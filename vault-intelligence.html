@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vault Intelligence · Noé Martineau</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <meta name="description" content="Case study: Vault Intelligence, a tool that maps DeFi exposure so you can read who's exposed to what in seconds." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="topnav">
+    <a class="topnav__back" href="index.html">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M12 8H4M7 5L4 8l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      Noé Martineau
+    </a>
+  </nav>
+
+  <article class="page case">
+    <!-- Hero -->
+    <header class="case__hero">
+      <h1 class="case__title">See who's <span class="accent">exposed</span> to what</h1>
+      <p class="dek">
+        In DeFi, a vault leans on markets, and markets lean on assets. Deposit into a "USDC vault" and
+        you're not really holding USDC, you're exposed to the whole chain beneath it. This tool maps that
+        chain, so you can read it in seconds instead of hours.
+      </p>
+      <p class="dek">
+        <strong>I designed and shipped this one end to end.</strong> The force-directed bubble graph and
+        every interaction on this page are live front-end code I wrote, not a prototype.
+      </p>
+      <dl class="meta">
+        <div class="meta__item"><dt>Role</dt><dd>Product Designer &amp; Engineer</dd></div>
+        <div class="meta__item"><dt>Company</dt><dd>Kiln · Railnet</dd></div>
+        <div class="meta__item"><dt>Surface</dt><dd>Web app</dd></div>
+        <div class="meta__item"><dt>Year</dt><dd>2026</dd></div>
+      </dl>
+    </header>
+
+    <!-- Hero media -->
+    <figure class="shot">
+      <video autoplay loop muted playsinline preload="auto" poster="assets/vi/contagion-poster.jpg">
+        <source src="assets/vi/contagion.mp4" type="video/mp4" />
+      </video>
+    </figure>
+    <p class="case__caption">One vault at the centre, and every market and collateral asset it depends on radiating out from it.</p>
+
+    <!-- The problem -->
+    <section class="case-section">
+      <h2>You can't see what you're exposed to</h2>
+      <p>
+        A vault shows a clean number and a friendly name. It never shows the stack underneath: the markets it
+        lends into, the collateral behind them, the single asset three layers down that other vaults lean on
+        too. The same asset backs many vaults at once, so when it breaks, they break together.
+        <span class="accent">That's contagion, and it's invisible.</span>
+      </p>
+      <blockquote class="pull">"When one asset wobbles, which vaults go down with it?"</blockquote>
+      <p>
+        Until now, answering that meant an hour of manual digging across a dozen disconnected tools, long
+        after the damage was done.
+      </p>
+    </section>
+
+    <!-- The model -->
+    <section class="case-section">
+      <h2>Vaults, markets and assets</h2>
+      <p>
+        A vault is where money is deposited. A market is where that money is lent out. An asset is what
+        ultimately backs it. Vaults lean on markets; markets lean on assets, and the same market or asset is
+        shared by many vaults at once. <span class="accent">That sharing is exactly how risk spreads.</span>
+      </p>
+
+      <div class="model">
+        <div class="model__node">
+          <span class="model__name">Vault</span>
+          <span class="model__sub">where you deposit</span>
+        </div>
+        <div class="model__link">
+          <span>allocates to</span>
+          <svg width="30" height="14" viewBox="0 0 30 14" fill="none" aria-hidden="true"><path d="M2 7h24M21 2l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </div>
+        <div class="model__node">
+          <span class="model__name">Market</span>
+          <span class="model__sub">where it's lent</span>
+        </div>
+        <div class="model__link">
+          <span>backed by</span>
+          <svg width="30" height="14" viewBox="0 0 30 14" fill="none" aria-hidden="true"><path d="M2 7h24M21 2l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </div>
+        <div class="model__node">
+          <span class="model__name">Asset</span>
+          <span class="model__sub">what it's exposed to</span>
+        </div>
+      </div>
+
+      <div class="dirnotes">
+        <p><strong>Read it downstream →</strong> what a vault actually holds.</p>
+        <p><strong>← Read it upstream,</strong> who's exposed to a given asset.</p>
+      </div>
+      <p style="margin-top:24px;">
+        A table can list any one vault's holdings. Only a graph shows that four vaults lean on the same asset
+        at once, which is the whole point. So the map is force-directed: shared dependencies pull nodes
+        together, and contagion becomes something you see rather than something you work out.
+      </p>
+    </section>
+
+    <!-- The interaction -->
+    <section class="case-section">
+      <h2>Click anything to see its connections</h2>
+      <ul class="ilist">
+        <li><strong>Hover a vault.</strong> See what it holds: the markets it allocates to, and the collateral behind them.</li>
+        <li><strong>Hover an asset.</strong> See who's exposed to it: every market and vault that touches it, deduplicated into one node.</li>
+        <li><strong>Hover a market.</strong> See both directions at once: the vaults using it, and the assets it leans on.</li>
+      </ul>
+    </section>
+
+    <!-- Moment: asset exposure -->
+    <section class="case-section">
+      <h2>See everyone exposed to an asset</h2>
+      <p class="case__sub">The clearest proof of contagion: select one node, and the whole crowd that depends on it appears.</p>
+      <figure class="shot">
+        <video autoplay loop muted playsinline preload="auto" poster="assets/vi/exposure-poster.jpg">
+          <source src="assets/vi/exposure.mp4" type="video/mp4" />
+        </video>
+      </figure>
+      <p class="case__caption"><strong>Everyone exposed, in one move.</strong> Select a market or asset and the whole crowd that leans on it fans out around it, including the connections you'd never have found by hand.</p>
+    </section>
+
+    <!-- Moment: search & filter -->
+    <section class="case-section">
+      <h2>Search and filter the whole map</h2>
+      <p class="case__sub">Type a vault, asset or curator, or filter by protocol and chain, and the universe reframes around the answer.</p>
+      <figure class="shot">
+        <video autoplay loop muted playsinline preload="auto" poster="assets/vi/search-poster.jpg">
+          <source src="assets/vi/search.mp4" type="video/mp4" />
+        </video>
+      </figure>
+      <p class="case__caption"><strong>Search &amp; filter.</strong> Ask the question; the platform decides where to show you the answer.</p>
+    </section>
+
+    <!-- How we show risk -->
+    <section class="case-section">
+      <h2>We show facts, not verdicts</h2>
+      <p>
+        We legally can't call a vault "safe" or "risky", a product that publishes that would be regulated
+        investment advice. So I designed the opposite: no scores, no ratings, no judgment words.
+      </p>
+      <p>
+        Every point on screen is a sourceable fact, a 72-hour timelock, a fixed-price oracle, an 86% LLTV,
+        marked as a strength or as something to review. The product shows you where the risks lie and lets
+        you decide.
+      </p>
+      <figure class="shot">
+        <video autoplay loop muted playsinline preload="auto" poster="assets/vi/risk-poster.jpg">
+          <source src="assets/vi/risk.mp4" type="video/mp4" />
+        </video>
+      </figure>
+      <p class="case__caption">Toggle risk on, and every node carries a sourced breakdown: strengths, and the facts worth reviewing, in plain language.</p>
+      <div class="flags">
+        <span class="flag flag--strength">✓ <b>Strength</b> the fact meets the threshold</span>
+        <span class="flag flag--review">⚑ <b>To review</b> the fact deviates, not "bad"</span>
+      </div>
+    </section>
+
+    <!-- What it's for -->
+    <section class="case-section">
+      <h2>Who's exposed, in under a minute</h2>
+      <p>
+        Kiln's risk, BD and partnerships teams use it, along with partners doing vault due diligence. When a
+        token starts depegging, "which vaults are exposed to this?" now gets answered in a single search
+        instead of an afternoon of manual digging across a dozen tools, and you leave with a report you can
+        forward to a client.
+      </p>
+      <p class="case__note">
+        In active use across those teams; hard adoption figures to be added once measured. The time
+        comparison is directional, against the manual workflow it replaced.
+      </p>
+    </section>
+
+    <footer class="case__footer">
+      <a class="topnav__back" href="index.html">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M12 8H4M7 5L4 8l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        Back to home
+      </a>
+      <nav class="site-footer__links" aria-label="Contact">
+        <a href="mailto:noemartineaudu85@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/noemartineau/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </nav>
+    </footer>
+  </article>
+
+  <script>
+    // Respect reduced-motion: show poster, don't autoplay.
+    (function () {
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.querySelectorAll('video').forEach(function (v) {
+          v.removeAttribute('autoplay');
+          v.removeAttribute('loop');
+          try { v.pause(); } catch (e) {}
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

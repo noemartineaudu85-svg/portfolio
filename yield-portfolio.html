@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yield Portfolio · Noé Martineau</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <meta name="description" content="Case study: turning Kiln's staking-only dashboard into a unified yield portfolio platform." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="topnav">
+    <a class="topnav__back" href="index.html">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M12 8H4M7 5L4 8l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      Noé Martineau
+    </a>
+  </nav>
+
+  <article class="page case">
+    <!-- Hero -->
+    <header class="case__hero">
+      <h1 class="case__title">From a staking tool to a<br />yield portfolio platform</h1>
+      <dl class="meta">
+        <div class="meta__item"><dt>When</dt><dd>May 2025</dd></div>
+        <div class="meta__item"><dt>Duration</dt><dd>4 weeks</dd></div>
+        <div class="meta__item"><dt>Company</dt><dd>Kiln</dd></div>
+        <div class="meta__item"><dt>Platform</dt><dd>Desktop web app</dd></div>
+      </dl>
+      <p class="case__tldr">
+        <strong>In short:</strong> institutions had no single view of their yield, so teams rebuilt it by hand
+        in spreadsheets. I took Kiln's staking-only dashboard to a unified portfolio platform, staking and
+        DeFi in one place, now the daily source of truth for 100+ institutional teams.
+      </p>
+    </header>
+
+    <!-- Context -->
+    <section class="case-section">
+      <h2>Context</h2>
+      <p>
+        Kiln is institutional yield infrastructure with $18B+ in assets staked across 200+ institutions,
+        from exchanges to fintechs to funds. Its rails let those institutions earn onchain yield without
+        ever giving up custody of their assets.
+      </p>
+      <p>That earning happens two ways, both specific to crypto:</p>
+      <ul class="case-list">
+        <li><strong>Staking</strong> → locking up assets to help run a blockchain, which pays rewards in return.</li>
+        <li><strong>DeFi</strong> → lending assets out through automated lending markets that pay interest.</li>
+      </ul>
+      <p>Kiln is the infrastructure that makes both work safely, at institutional scale: $18B+ in assets, 200+ clients.</p>
+      <p>
+        Here's the catch for a designer: almost none of that infrastructure has a screen. Most clients plug
+        into it through code: an API, an embeddable "earn" widget for their own users, white-label contracts.
+      </p>
+      <p>
+        Only one surface is built for actual people: the <strong>Dashboard</strong>, where a client's treasury,
+        finance and ops teams log in to see, operate and report on their positions.
+      </p>
+      <p>I came in as Kiln was moving from staking into DeFi, right when a staking-only screen stopped being enough.</p>
+
+      <p class="case__label">Plugged by the customer → no interface</p>
+      <div class="card-row">
+        <div class="mini-card">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 8l-4 4 4 4M15 8l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>API</span>
+        </div>
+        <div class="mini-card">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M4 9h16" stroke="currentColor" stroke-width="1.6"/></svg>
+          <span>Widget</span>
+        </div>
+        <div class="mini-card">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 4H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9l-5-5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 4v5h5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M10.5 13l-1.5 1.5 1.5 1.5M13.5 13l1.5 1.5-1.5 1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Smart contracts</span>
+        </div>
+      </div>
+
+      <p class="case__label">Only one surface is built for people → Interface</p>
+      <div class="feature-card">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M4 9h16" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span class="feature-card__title">Dashboard</span>
+        <span class="feature-card__sub">the client's own treasury · finance · ops team</span>
+      </div>
+    </section>
+
+    <!-- The problem -->
+    <section class="case-section">
+      <h2>The problem</h2>
+      <p>Every institution we spoke to was quietly answering the same question:</p>
+      <blockquote class="pull">"Where do all our yield positions actually stand right now?"</blockquote>
+      <p>
+        No product answered it. So teams rebuilt the answer by hand: exporting from protocol interfaces,
+        reading half-complete custodian dashboards, and stitching it together in a spreadsheet a finance
+        analyst refreshed <strong>manually</strong>, often <strong>from a CSV</strong> another team had dropped in Slack.
+      </p>
+      <p>
+        The question was hard for structural reasons: yield lived across many protocols, each with its own
+        interface; staking and DeFi are mechanically different primitives, so nothing lined them up in one
+        view; and reporting deep enough for compliance and accounting simply didn't exist in-product.
+      </p>
+      <p>
+        A missing feature is annoying. A missing <strong>source of truth</strong> is expensive: it costs
+        headcount, and it makes people distrust their own numbers.
+      </p>
+    </section>
+
+    <!-- Objective -->
+    <section class="case-section">
+      <h2>Objective</h2>
+      <p>
+        Take the Dashboard from a staking-only admin tool to a unified yield portfolio platform: one place
+        for institutions to discover, deploy, monitor and report on every position, staking and DeFi, across
+        20+ assets, held through the custodians they already use.
+      </p>
+      <p>
+        This case study is about the part everything else rests on: turning a fragmented, incompatible set of
+        positions into one view a team can trust as their daily source of truth.
+      </p>
+    </section>
+
+    <!-- My role -->
+    <section class="case-section">
+      <h2>My role</h2>
+      <ul class="case-list case-list--spaced">
+        <li>I was the founding and sole product designer on the Dashboard.</li>
+        <li>I led product direction, UX, UI, and the design system end to end.</li>
+        <li>I built Kiln's first design system in Figma on top of shadcn/Radix, implemented in code by engineering.</li>
+        <li>I prototyped and shipped some features directly in code, including their empty and error states.</li>
+        <li>I partnered weekly with product, frontend and data engineering, and kept clients close throughout.</li>
+      </ul>
+    </section>
+
+    <!-- Research -->
+    <section class="case-section">
+      <h2>Research</h2>
+      <p>
+        Before designing anything, I needed to understand how institutions actually operate yield day to day,
+        and why every team ends up rebuilding the same spreadsheet. I worked four angles:
+      </p>
+      <div class="research">
+        <div class="research__item">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H8l-4 3V6Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M18 9h0a2 2 0 0 1 2 2v8l-3-2h-4" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <div>
+            <h4>User interviews</h4>
+            <p>Sessions with client-side treasury, ops and finance teams. I also worked with our own account managers and customer success, who absorbed the pain daily, to map workflows and frustrations.</p>
+          </div>
+        </div>
+        <div class="research__item">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="6" y="4" width="12" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M9 4h6v3H9z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 11h6M9 15h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <div>
+            <h4>Workflow audit</h4>
+            <p>How teams tracked positions today: protocol UIs, custodian dashboards, hand-built spreadsheets, CSVs passed over Slack by our own finance team.</p>
+          </div>
+        </div>
+        <div class="research__item">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>
+          <div>
+            <h4>Prospect signals</h4>
+            <p>Institutions sitting on idle stablecoins and Bitcoin, looking for a compliant way to put them to work, and teams already in DeFi hitting a wall at every step.</p>
+          </div>
+        </div>
+        <div class="research__item">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 10l8-5 8 5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 10v8M9 10v8M15 10v8M19 10v8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M3 20h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <div>
+            <h4>Custodian &amp; competitive landscape</h4>
+            <p>What custodians actually expose, often partial or delayed, and where the reachable yield set silently shrinks.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="case__lead">Five structural pain points showed up across funds, exchanges, fintechs and treasuries:</p>
+      <ol class="pains">
+        <li><span class="pains__n">01</span><div><h4>Fragmented access</h4><p>A different interface and workflow per protocol. A UX problem and a security problem at once.</p></div></li>
+        <li><span class="pains__n">02</span><div><h4>Limited custodial integrations</h4><p>Custodians expose incomplete or delayed access, shrinking the options actually reachable.</p></div></li>
+        <li><span class="pains__n">03</span><div><h4>Insufficient reporting</h4><p>No provider gave finance and compliance the depth they needed, so teams built their own reconciliation: slow, costly, error-prone.</p></div></li>
+        <li><span class="pains__n">04</span><div><h4>Blind to risk</h4><p>No tooling for cross-protocol risk; evaluating a vault took a DeFi specialist most teams didn't have.</p></div></li>
+        <li><span class="pains__n">05</span><div><h4>No way to scale</h4><p>Balancing across protocols was manual, so growing exposure meant growing headcount.</p></div></li>
+      </ol>
+    </section>
+
+    <!-- Design decision & screens -->
+    <section class="case-section">
+      <h2>Design decision &amp; screens</h2>
+      <p>
+        Staking and DeFi don't behave alike: different lifecycles, lock-ups, reward mechanics. The obvious
+        move was to build two products, a staking view and a DeFi view, side by side. It was tempting: each
+        could mirror the mental model of its own protocol, and it was less work to reconcile under the hood.
+      </p>
+      <p>
+        I killed that option early. Two products would have meant learning the tool twice, two reporting
+        grammars to reconcile at audit time, and no way to answer the one question that mattered: what's our
+        total yield, across everything? The fragmentation we were trying to remove would have been rebuilt
+        inside our own product.
+      </p>
+      <p>
+        So I made the opposite bet: <strong>one portfolio view</strong>, and three numbers that mean the same
+        thing everywhere. Same tables, same reporting grammar, whatever a team holds. You learn the product
+        once. Under the hood the primitives stay different; on screen, they finally line up.
+      </p>
+
+      <div class="bet">
+        <div class="bet__left">
+          <div class="bet__chip">DeFi</div>
+          <div class="bet__chip">Staking</div>
+        </div>
+        <div class="bet__arrow" aria-hidden="true">
+          <svg width="28" height="16" viewBox="0 0 28 16" fill="none"><path d="M2 8h22M19 3l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="bet__right">
+          <span class="bet__title">Portfolio</span>
+          <span class="bet__sub">Balance · Interest · Performance</span>
+        </div>
+      </div>
+
+      <figure class="shot">
+        <img src="assets/yp/overview.jpg" alt="Portfolio overview: accounts, total balance and total interest donuts split staking vs DeFi" loading="lazy" />
+      </figure>
+      <figure class="shot">
+        <img src="assets/yp/overview-table.jpg" alt="Allocation by asset bar chart and a single positions table with asset, chains, type, share, balance and interest" loading="lazy" />
+      </figure>
+      <p class="case__caption"><strong>Portfolio overview</strong> → Total balance and total interest, split staking vs DeFi, then every position in a single table: asset, chains, type, share, balance, interest.</p>
+
+      <h3>Real-time to operate, historical to answer for</h3>
+      <figure class="shot">
+        <img src="assets/yp/historical-overview.jpg" alt="Historical overview: accounts, total balance and total interest donuts, and a stacked area chart of allocation over time" loading="lazy" />
+      </figure>
+      <figure class="shot">
+        <img src="assets/yp/historical-area-table.jpg" alt="Historical allocation shown as a stacked area chart over time with the full positions table below" loading="lazy" />
+      </figure>
+      <figure class="shot">
+        <img src="assets/yp/historical-bars.jpg" alt="Historical allocation shown as stacked monthly bars with a positions table" loading="lazy" />
+      </figure>
+      <p class="case__caption"><strong>Total balance &amp; total interest earned, historical view</strong> → Allocation and interest over any window, as a defensible record, not a screenshot reconstructed after the fact.</p>
+
+      <h3>Down to the position</h3>
+      <figure class="shot">
+        <img src="assets/yp/position-stakes.jpg" alt="Account detail: Cardano performance with total staked, interest earned, network APY and a stakes table" loading="lazy" />
+      </figure>
+      <figure class="shot">
+        <img src="assets/yp/position-historical.jpg" alt="Account detail with a historical evolution bar chart of interest earned over time" loading="lazy" />
+      </figure>
+      <p class="case__caption"><strong>Down to the position</strong> → Per-account performance and full history, so a team can drill from the portfolio all the way to a single stake and still answer for it.</p>
+    </section>
+
+    <!-- What it became -->
+    <section class="case-section">
+      <h2>What it became</h2>
+      <p>
+        After launch, the Dashboard became the daily source of truth it was built to be, replacing the
+        spreadsheet-and-CSV-over-Slack workflow. The reconciliation that used to take a finance analyst most
+        of a day now happens in-product in minutes.
+      </p>
+
+      <div class="stats">
+        <div class="stat">
+          <span class="stat__label">In yield, now tracked in one view</span>
+          <span class="stat__value">$3B</span>
+        </div>
+        <div class="stat">
+          <span class="stat__label">Wallets earning, staking &amp; DeFi</span>
+          <span class="stat__value">13k</span>
+        </div>
+        <div class="stat">
+          <span class="stat__label">Institutional teams on it daily</span>
+          <span class="stat__value">100+</span>
+        </div>
+      </div>
+      <p class="case__note">
+        Adoption from the platform's first rollout. The time saving is directional, measured against the
+        manual workflow it replaced, the way finance teams already reason about it in practice.
+      </p>
+
+      <div class="beforeafter">
+        <div class="ba">
+          <span class="ba__label">Before</span>
+          <span class="ba__title">A staking admin tool</span>
+          <ul>
+            <li>One screen, staking only</li>
+            <li>Positions rebuilt by hand in spreadsheets</li>
+            <li>Reporting passed around as CSVs on Slack</li>
+            <li>Checked here, then double-checked elsewhere</li>
+          </ul>
+        </div>
+        <div class="ba ba--after">
+          <span class="ba__label">After</span>
+          <span class="ba__title">A yield portfolio platform</span>
+          <ul>
+            <li>Staking and DeFi in one portfolio view</li>
+            <li>Positions imported and recognised in minutes</li>
+            <li>Self-serve, audit-ready history and exports</li>
+            <li>The daily source of truth teams run on</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer class="case__footer">
+      <a class="topnav__back" href="index.html">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M12 8H4M7 5L4 8l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        Back to home
+      </a>
+      <nav class="site-footer__links" aria-label="Contact">
+        <a href="mailto:noemartineaudu85@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/noemartineau/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </nav>
+    </footer>
+  </article>
+</body>
+</html>
