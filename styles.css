@@ -886,9 +886,21 @@ body {
 
   .card-row,
   .stats,
-  .beforeafter {
+  .beforeafter,
+  .impact {
     grid-template-columns: 1fr;
     gap: 16px;
+  }
+
+  .loop,
+  .flow,
+  .pipe {
+    flex-direction: column;
+  }
+
+  .loop__arrow {
+    justify-content: center;
+    transform: rotate(90deg);
   }
 
   .bet {
@@ -1118,6 +1130,269 @@ body {
   .project:hover {
     transition: none;
   }
+}
+
+/* Impact metrics (before → after) */
+.impact {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 22px 0 6px;
+}
+
+.impact__item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.impact__delta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-strong);
+}
+
+.impact__delta--single {
+  font-size: 26px;
+}
+
+.impact__from {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+}
+
+.impact__to {
+  color: var(--text-strong);
+}
+
+.impact__label {
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: var(--text);
+}
+
+.case__scale-label {
+  margin: 24px 0 12px !important;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Cost variant: the "before" pain, visually quieter than the impact wins */
+.impact--cost .impact__item {
+  background: var(--bg);
+  box-shadow: none;
+}
+
+.impact--cost .impact__delta {
+  color: var(--text-muted);
+}
+
+/* Testing feedback loop diagram */
+.loop-fig {
+  margin: 24px 0;
+}
+
+.loop-fig .case__caption {
+  margin-top: 12px !important;
+}
+
+.loop {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+
+.loop__step {
+  flex: 1;
+  min-width: 118px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  padding: 13px 14px;
+  text-align: center;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.loop__label {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+.loop__sub {
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--text-muted);
+}
+
+.loop__arrow {
+  display: flex;
+  align-items: center;
+  color: var(--text-muted);
+  font-size: 16px;
+}
+
+/* Rejected alternatives */
+.alts {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 20px 0 8px;
+}
+
+.alt {
+  padding-left: 16px;
+  border-left: 2px solid var(--border);
+}
+
+.alt__head {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+.alt__why {
+  margin: 0 !important;
+  max-width: 70ch;
+  font-size: 14.5px;
+  color: var(--text);
+}
+
+/* User task-flow diagram */
+.flow {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+
+.flow__step {
+  flex: 1;
+  min-width: 128px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px;
+  text-align: center;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.flow__n {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.flow__label {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-strong);
+}
+
+.flow__sub {
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--text-muted);
+}
+
+/* Design-to-code pipeline diagram */
+.pipe {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+
+.pipe__col {
+  flex: 1;
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pipe__node {
+  flex: 1;
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 13px 15px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.pipe__node--out {
+  background: var(--surface);
+  border-color: var(--text-strong);
+}
+
+.pipe__label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+.pipe__sub {
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--text-muted);
+}
+
+.process-img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 /* Case study TL;DR / summary box */

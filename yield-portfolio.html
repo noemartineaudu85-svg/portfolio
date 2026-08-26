@@ -51,10 +51,9 @@
         <li><strong>Staking</strong> → locking up assets to help run a blockchain, which pays rewards in return.</li>
         <li><strong>DeFi</strong> → lending assets out through automated lending markets that pay interest.</li>
       </ul>
-      <p>Kiln is the infrastructure that makes both work safely, at institutional scale: $18B+ in assets, 200+ clients.</p>
       <p>
         Here's the catch for a designer: almost none of that infrastructure has a screen. Most clients plug
-        into it through code: an API, an embeddable "earn" widget for their own users, white-label contracts.
+        into it through code.
       </p>
       <p>
         Only one surface is built for actual people: the <strong>Dashboard</strong>, where a client's treasury,
@@ -105,6 +104,22 @@
         A missing feature is annoying. A missing <strong>source of truth</strong> is expensive: it costs
         headcount, and it makes people distrust their own numbers.
       </p>
+
+      <p class="case__scale-label">What the status quo cost</p>
+      <div class="impact impact--cost">
+        <div class="impact__item">
+          <span class="impact__delta impact__delta--single">~half a day</span>
+          <span class="impact__label">per report, reconciling positions by hand in a spreadsheet</span>
+        </div>
+        <div class="impact__item">
+          <span class="impact__delta impact__delta--single">Every change</span>
+          <span class="impact__label">routed through our implementation team, a constant queue</span>
+        </div>
+        <div class="impact__item">
+          <span class="impact__delta impact__delta--single">~2 days</span>
+          <span class="impact__label">to onboard and reconcile a new set of positions</span>
+        </div>
+      </div>
     </section>
 
     <!-- Objective -->
@@ -114,10 +129,6 @@
         Take the Dashboard from a staking-only admin tool to a unified yield portfolio platform: one place
         for institutions to discover, deploy, monitor and report on every position, staking and DeFi, across
         20+ assets, held through the custodians they already use.
-      </p>
-      <p>
-        This case study is about the part everything else rests on: turning a fragmented, incompatible set of
-        positions into one view a team can trust as their daily source of truth.
       </p>
     </section>
 
@@ -179,6 +190,43 @@
         <li><span class="pains__n">04</span><div><h4>Blind to risk</h4><p>No tooling for cross-protocol risk; evaluating a vault took a DeFi specialist most teams didn't have.</p></div></li>
         <li><span class="pains__n">05</span><div><h4>No way to scale</h4><p>Balancing across protocols was manual, so growing exposure meant growing headcount.</p></div></li>
       </ol>
+
+      <h3>Testing: I shipped to design partners and watched</h3>
+      <p>
+        Because the platform was rolling out to design partners, I didn't test in a lab, I tested in
+        production. Each client had a dedicated Slack channel that became a continuous feedback loop: ship a
+        slice, watch how they used it, gather reactions, iterate. I paired that with <strong>Mixpanel</strong>
+        to see which views people actually opened and which they ignored, and every change a client asked for
+        had to justify its <strong>business impact</strong> before it entered the backlog, which kept the
+        roadmap honest.
+      </p>
+
+      <figure class="loop-fig">
+        <div class="loop">
+          <div class="loop__step"><span class="loop__label">Ship</span><span class="loop__sub">a thin slice to partners</span></div>
+          <span class="loop__arrow" aria-hidden="true">→</span>
+          <div class="loop__step"><span class="loop__label">Measure</span><span class="loop__sub">Mixpanel, what gets used</span></div>
+          <span class="loop__arrow" aria-hidden="true">→</span>
+          <div class="loop__step"><span class="loop__label">Listen</span><span class="loop__sub">client Slack channels</span></div>
+          <span class="loop__arrow" aria-hidden="true">→</span>
+          <div class="loop__step"><span class="loop__label">Iterate</span><span class="loop__sub">if the business impact holds</span></div>
+        </div>
+        <figcaption class="case__caption">Testing wasn't a phase, it was a loop: ship, measure in Mixpanel, listen in the Slack channels, iterate.</figcaption>
+      </figure>
+
+      <p class="case__lead">Two decisions the feedback changed:</p>
+      <p>
+        <strong>"All accounts" became the default view.</strong> A team doesn't manage one account, it manages
+        a dozen sub-accounts across custodians. The first version made you pick an account first; Mixpanel
+        showed most sessions went straight to "all accounts", and clients said the per-account default added a
+        click before the answer they actually wanted: the total. So the aggregate view became the landing state.
+      </p>
+      <p>
+        <strong>Historical went from a side tab to a first-class view.</strong> The first build led with a
+        real-time snapshot. Finance teams told us, repeatedly in the Slack channels, that a snapshot they
+        couldn't reproduce was useless for reporting: they needed to answer "what did we hold on this date"
+        for an auditor. So the historical view became half the product.
+      </p>
     </section>
 
     <!-- Design decision & screens -->
@@ -186,19 +234,14 @@
       <h2>Design decision &amp; screens</h2>
       <p>
         Staking and DeFi don't behave alike: different lifecycles, lock-ups, reward mechanics. The obvious
-        move was to build two products, a staking view and a DeFi view, side by side. It was tempting: each
-        could mirror the mental model of its own protocol, and it was less work to reconcile under the hood.
-      </p>
-      <p>
-        I killed that option early. Two products would have meant learning the tool twice, two reporting
-        grammars to reconcile at audit time, and no way to answer the one question that mattered: what's our
-        total yield, across everything? The fragmentation we were trying to remove would have been rebuilt
-        inside our own product.
+        move was two products, a staking view and a DeFi view side by side. I killed that early: it would have
+        meant learning the tool twice, two reporting grammars to reconcile at audit time, and no way to answer
+        the one question that mattered, what's our total yield across everything.
       </p>
       <p>
         So I made the opposite bet: <strong>one portfolio view</strong>, and three numbers that mean the same
-        thing everywhere. Same tables, same reporting grammar, whatever a team holds. You learn the product
-        once. Under the hood the primitives stay different; on screen, they finally line up.
+        thing everywhere. You learn the product once. Under the hood the primitives stay different; on screen,
+        they finally line up.
       </p>
 
       <div class="bet">
@@ -214,6 +257,35 @@
           <span class="bet__sub">Balance · Interest · Performance</span>
         </div>
       </div>
+
+      <h3>Three other paths I ruled out</h3>
+      <div class="alts">
+        <div class="alt">
+          <span class="alt__head">One big table, like the spreadsheet it replaced</span>
+          <p class="alt__why">Tempting because it's familiar, zero learning curve. But it doesn't scale across 20+ assets, two yield types and several custodians; it hides the staking-vs-DeFi split and the time dimension; and it just rebuilds the spreadsheet pain in-product. Ruled out.</p>
+        </div>
+        <div class="alt">
+          <span class="alt__head">Navigate by custodian or protocol first</span>
+          <p class="alt__why">Tempting because it matches "where are my assets held". But teams think in total yield and risk, not "my positions at custodian X"; leading with custodian re-fragments the view and buries the portfolio answer. It became a filter, not the top-level structure.</p>
+        </div>
+        <div class="alt">
+          <span class="alt__head">Real-time only, skip the historical view</span>
+          <p class="alt__why">Tempting because it's far less data engineering and ships faster. But compliance and audit need a defensible record of what was held on a given date, one of the core reasons the product exists. I built the historical view anyway.</p>
+        </div>
+      </div>
+
+      <figure class="loop-fig">
+        <div class="flow">
+          <div class="flow__step"><span class="flow__n">1</span><span class="flow__label">Portfolio overview</span><span class="flow__sub">all accounts, total balance &amp; interest</span></div>
+          <span class="loop__arrow" aria-hidden="true">→</span>
+          <div class="flow__step"><span class="flow__n">2</span><span class="flow__label">Real-time or historical</span><span class="flow__sub">operate now, or answer for later</span></div>
+          <span class="loop__arrow" aria-hidden="true">→</span>
+          <div class="flow__step"><span class="flow__n">3</span><span class="flow__label">Drill to a position</span><span class="flow__sub">down to a single stake</span></div>
+          <span class="loop__arrow" aria-hidden="true">→</span>
+          <div class="flow__step"><span class="flow__n">4</span><span class="flow__label">Export a report</span><span class="flow__sub">audit-ready</span></div>
+        </div>
+        <figcaption class="case__caption">The core flow: from the total, down to a single stake, out to a report an auditor accepts. The screens below follow it in order.</figcaption>
+      </figure>
 
       <figure class="shot">
         <img src="assets/yp/overview.jpg" alt="Portfolio overview: accounts, total balance and total interest donuts split staking vs DeFi" loading="lazy" />
@@ -245,18 +317,65 @@
       <p class="case__caption"><strong>Down to the position</strong> → Per-account performance and full history, so a team can drill from the portfolio all the way to a single stake and still answer for it.</p>
     </section>
 
+    <!-- Constraints -->
+    <section class="case-section">
+      <h2>The constraints I designed inside</h2>
+      <p>None of this happened on a blank canvas. Three constraints shaped every screen.</p>
+
+      <h3>A design system I had to build first</h3>
+      <p>
+        Kiln had no design system when I arrived. I built its first one in Figma on top of shadcn/Radix, and
+        engineering implemented it in code. That was a constraint and a lever at once: every screen had to fit
+        the system, but because I work in code too, I could extend a component or ship a change myself through
+        the Figma-to-code pipeline, without waiting on a hand-off.
+      </p>
+
+      <figure class="loop-fig">
+        <img class="process-img" src="assets/yp/process.png" alt="Design-to-code pipeline: the Shadcn design system and the Figma file feed a code editor via Figma MCP, which produces the Yield Dashboard" loading="lazy" />
+        <figcaption class="case__caption">Design system, Figma and code were one pipeline: I could go from a component to a shipped change without a hand-off, and extend the system in code when a screen needed it.</figcaption>
+      </figure>
+
+      <h3>Compliance and custody</h3>
+      <p>
+        This is regulated financial infrastructure: institutions never give up custody, and every number on
+        screen can end up in front of an auditor. The product could never overstate or infer; it had to show
+        sourced, defensible data and a reproducible history.
+      </p>
+
+      <h3>Partial, delayed custodian data</h3>
+      <p>
+        Custodians expose incomplete or lagging data. The UI had to stay honest about it, surfacing what's
+        known, what's pending and what's stale, instead of pretending the picture was always complete.
+      </p>
+    </section>
+
     <!-- What it became -->
     <section class="case-section">
       <h2>What it became</h2>
       <p>
         After launch, the Dashboard became the daily source of truth it was built to be, replacing the
-        spreadsheet-and-CSV-over-Slack workflow. The reconciliation that used to take a finance analyst most
-        of a day now happens in-product in minutes.
+        spreadsheet-and-CSV-over-Slack workflow.
       </p>
 
+      <div class="impact">
+        <div class="impact__item">
+          <span class="impact__delta"><span class="impact__from">~half a day</span><span class="impact__to">under 5&nbsp;min</span></span>
+          <span class="impact__label">to reconcile positions and pull a defensible report</span>
+        </div>
+        <div class="impact__item">
+          <span class="impact__delta impact__delta--single">−55%</span>
+          <span class="impact__label">manual data &amp; change requests to the implementation team</span>
+        </div>
+        <div class="impact__item">
+          <span class="impact__delta"><span class="impact__from">~2 days</span><span class="impact__to">under 15&nbsp;min</span></span>
+          <span class="impact__label">to import and recognise a new set of positions, self-serve</span>
+        </div>
+      </div>
+
+      <p class="case__scale-label">At the scale it runs today</p>
       <div class="stats">
         <div class="stat">
-          <span class="stat__label">In yield, now tracked in one view</span>
+          <span class="stat__label">In yield, tracked in one view</span>
           <span class="stat__value">$3B</span>
         </div>
         <div class="stat">
@@ -269,32 +388,27 @@
         </div>
       </div>
       <p class="case__note">
-        Adoption from the platform's first rollout. The time saving is directional, measured against the
-        manual workflow it replaced, the way finance teams already reason about it in practice.
+        Adoption and usage figures are tracked in Mixpanel; the before/after times are directional estimates
+        against the manual workflow they replaced, cross-checked against client feedback gathered in dedicated
+        Slack channels.
       </p>
+    </section>
 
-      <div class="beforeafter">
-        <div class="ba">
-          <span class="ba__label">Before</span>
-          <span class="ba__title">A staking admin tool</span>
-          <ul>
-            <li>One screen, staking only</li>
-            <li>Positions rebuilt by hand in spreadsheets</li>
-            <li>Reporting passed around as CSVs on Slack</li>
-            <li>Checked here, then double-checked elsewhere</li>
-          </ul>
-        </div>
-        <div class="ba ba--after">
-          <span class="ba__label">After</span>
-          <span class="ba__title">A yield portfolio platform</span>
-          <ul>
-            <li>Staking and DeFi in one portfolio view</li>
-            <li>Positions imported and recognised in minutes</li>
-            <li>Self-serve, audit-ready history and exports</li>
-            <li>The daily source of truth teams run on</li>
-          </ul>
-        </div>
-      </div>
+    <!-- Hindsight -->
+    <section class="case-section">
+      <h2>If I did it again</h2>
+      <p>Two things I'd change with hindsight.</p>
+      <p>
+        <strong>Design the empty, error and stale-data states first, not last.</strong> Custodian data is
+        partial and delayed, but I designed the happy path first and retrofitted the pending / stale / missing
+        states. In a data product that's exactly where trust is won or lost, so next time they belong in the
+        first design, not a cleanup pass.
+      </p>
+      <p>
+        <strong>Test the "answer for an auditor" job from day one.</strong> I led with real-time and added the
+        historical view once feedback pushed me there, but it turned out to be half the product. I'd validate
+        the reporting and audit job from the start rather than treating it as a follow-up.
+      </p>
     </section>
 
     <footer class="case__footer">
