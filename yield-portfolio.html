@@ -40,26 +40,14 @@
 
     <!-- Context -->
     <section class="case-section">
-      <h2>Context</h2>
+      <h2>Context &amp; problem</h2>
       <p>
-        Kiln is institutional yield infrastructure with $18B+ in assets staked across 200+ institutions,
-        from exchanges to fintechs to funds. Its rails let those institutions earn onchain yield without
-        ever giving up custody of their assets.
+        Kiln is institutional yield infrastructure: $18B+ staked across 200+ institutions. It works two ways,
+        staking (locking assets to help run a chain) and DeFi (lending them out for interest). Almost none of
+        it has a screen, clients plug in through code. The one surface built for people is the
+        <strong>Dashboard</strong>, where a client's treasury, finance and ops teams log in. I joined as Kiln
+        moved from staking into DeFi, right when a staking-only screen stopped being enough.
       </p>
-      <p>That earning happens two ways, both specific to crypto:</p>
-      <ul class="case-list">
-        <li><strong>Staking</strong> → locking up assets to help run a blockchain, which pays rewards in return.</li>
-        <li><strong>DeFi</strong> → lending assets out through automated lending markets that pay interest.</li>
-      </ul>
-      <p>
-        Here's the catch for a designer: almost none of that infrastructure has a screen. Most clients plug
-        into it through code.
-      </p>
-      <p>
-        Only one surface is built for actual people: the <strong>Dashboard</strong>, where a client's treasury,
-        finance and ops teams log in to see, operate and report on their positions.
-      </p>
-      <p>I came in as Kiln was moving from staking into DeFi, right when a staking-only screen stopped being enough.</p>
 
       <p class="case__label">Plugged by the customer → no interface</p>
       <div class="card-row">
@@ -83,26 +71,14 @@
         <span class="feature-card__title">Dashboard</span>
         <span class="feature-card__sub">the client's own treasury · finance · ops team</span>
       </div>
-    </section>
 
-    <!-- The problem -->
-    <section class="case-section">
-      <h2>The problem</h2>
-      <p>Every institution we spoke to was quietly answering the same question:</p>
+      <p>Every team we spoke to was quietly asking the same thing:</p>
       <blockquote class="pull">"Where do all our yield positions actually stand right now?"</blockquote>
       <p>
-        No product answered it. So teams rebuilt the answer by hand: exporting from protocol interfaces,
-        reading half-complete custodian dashboards, and stitching it together in a spreadsheet a finance
-        analyst refreshed <strong>manually</strong>, often <strong>from a CSV</strong> another team had dropped in Slack.
-      </p>
-      <p>
-        The question was hard for structural reasons: yield lived across many protocols, each with its own
-        interface; staking and DeFi are mechanically different primitives, so nothing lined them up in one
-        view; and reporting deep enough for compliance and accounting simply didn't exist in-product.
-      </p>
-      <p>
-        A missing feature is annoying. A missing <strong>source of truth</strong> is expensive: it costs
-        headcount, and it makes people distrust their own numbers.
+        No product answered it, so teams rebuilt it by hand: exports stitched into a spreadsheet a finance
+        analyst refreshed from a CSV dropped in Slack. Yield lived across many protocols, staking and DeFi
+        never lined up, and audit-ready reporting didn't exist in-product. A missing feature is annoying; a
+        missing <strong>source of truth</strong> is expensive.
       </p>
 
       <p class="case__scale-label">What the status quo cost</p>
@@ -146,7 +122,7 @@
 
     <!-- Research -->
     <section class="case-section">
-      <h2>Research</h2>
+      <h2>Research &amp; testing</h2>
       <p>
         Before designing anything, I needed to understand how institutions actually operate yield day to day,
         and why every team ends up rebuilding the same spreadsheet. I worked four angles:
@@ -156,7 +132,7 @@
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H8l-4 3V6Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M18 9h0a2 2 0 0 1 2 2v8l-3-2h-4" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
           <div>
             <h4>User interviews</h4>
-            <p>Sessions with client-side treasury, ops and finance teams. I also worked with our own account managers and customer success, who absorbed the pain daily, to map workflows and frustrations.</p>
+            <p>Client-side treasury, ops and finance teams, plus our own account managers who absorbed the pain daily.</p>
           </div>
         </div>
         <div class="research__item">
@@ -193,12 +169,9 @@
 
       <h3>Testing: I shipped to design partners and watched</h3>
       <p>
-        Because the platform was rolling out to design partners, I didn't test in a lab, I tested in
-        production. Each client had a dedicated Slack channel that became a continuous feedback loop: ship a
-        slice, watch how they used it, gather reactions, iterate. I paired that with <strong>Mixpanel</strong>
-        to see which views people actually opened and which they ignored, and every change a client asked for
-        had to justify its <strong>business impact</strong> before it entered the backlog, which kept the
-        roadmap honest.
+        I didn't test in a lab, I tested in production. Each client had a dedicated Slack channel, a continuous
+        feedback loop, and I paired it with <strong>Mixpanel</strong> to see what actually got used. Every
+        requested change had to justify its <strong>business impact</strong> before it entered the backlog.
       </p>
 
       <figure class="loop-fig">
@@ -216,16 +189,13 @@
 
       <p class="case__lead">Two decisions the feedback changed:</p>
       <p>
-        <strong>"All accounts" became the default view.</strong> A team doesn't manage one account, it manages
-        a dozen sub-accounts across custodians. The first version made you pick an account first; Mixpanel
-        showed most sessions went straight to "all accounts", and clients said the per-account default added a
-        click before the answer they actually wanted: the total. So the aggregate view became the landing state.
+        <strong>"All accounts" became the default view.</strong> Teams manage a dozen sub-accounts; Mixpanel
+        showed most sessions went straight to "all accounts", so the aggregate became the landing state instead
+        of an extra click before the total.
       </p>
       <p>
-        <strong>Historical went from a side tab to a first-class view.</strong> The first build led with a
-        real-time snapshot. Finance teams told us, repeatedly in the Slack channels, that a snapshot they
-        couldn't reproduce was useless for reporting: they needed to answer "what did we hold on this date"
-        for an auditor. So the historical view became half the product.
+        <strong>Historical went from a side tab to half the product.</strong> Finance teams needed to answer
+        "what did we hold on this date" for an auditor, not just a real-time snapshot they couldn't reproduce.
       </p>
     </section>
 
@@ -293,7 +263,7 @@
       <figure class="shot">
         <img src="assets/yp/overview-table.jpg" alt="Allocation by asset bar chart and a single positions table with asset, chains, type, share, balance and interest" loading="lazy" />
       </figure>
-      <p class="case__caption"><strong>Portfolio overview</strong> → Total balance and total interest, split staking vs DeFi, then every position in a single table: asset, chains, type, share, balance, interest.</p>
+      <p class="case__caption"><strong>Portfolio overview</strong> → Total balance and interest, split staking vs DeFi, then every position in one table.</p>
 
       <h3>Real-time to operate, historical to answer for</h3>
       <figure class="shot">
@@ -305,7 +275,7 @@
       <figure class="shot">
         <img src="assets/yp/historical-bars.jpg" alt="Historical allocation shown as stacked monthly bars with a positions table" loading="lazy" />
       </figure>
-      <p class="case__caption"><strong>Total balance &amp; total interest earned, historical view</strong> → Allocation and interest over any window, as a defensible record, not a screenshot reconstructed after the fact.</p>
+      <p class="case__caption"><strong>Historical view</strong> → Allocation and interest over any window, as a defensible record for auditors.</p>
 
       <h3>Down to the position</h3>
       <figure class="shot">
@@ -314,7 +284,7 @@
       <figure class="shot">
         <img src="assets/yp/position-historical.jpg" alt="Account detail with a historical evolution bar chart of interest earned over time" loading="lazy" />
       </figure>
-      <p class="case__caption"><strong>Down to the position</strong> → Per-account performance and full history, so a team can drill from the portfolio all the way to a single stake and still answer for it.</p>
+      <p class="case__caption"><strong>Down to the position</strong> → Per-account performance and full history, from the portfolio to a single stake.</p>
     </section>
 
     <!-- Constraints -->
@@ -324,28 +294,25 @@
 
       <h3>A design system I had to build first</h3>
       <p>
-        Kiln had no design system when I arrived. I built its first one in Figma on top of shadcn/Radix, and
-        engineering implemented it in code. That was a constraint and a lever at once: every screen had to fit
-        the system, but because I work in code too, I could extend a component or ship a change myself through
-        the Figma-to-code pipeline, without waiting on a hand-off.
+        Kiln had no design system, so I built its first one in Figma on shadcn/Radix. Because I work in code
+        too, I could extend a component or ship a change myself through the Figma-to-code pipeline, no hand-off.
       </p>
 
       <figure class="loop-fig">
         <img class="process-img" src="assets/yp/process.png" alt="Design-to-code pipeline: the Shadcn design system and the Figma file feed a code editor via Figma MCP, which produces the Yield Dashboard" loading="lazy" />
-        <figcaption class="case__caption">Design system, Figma and code were one pipeline: I could go from a component to a shipped change without a hand-off, and extend the system in code when a screen needed it.</figcaption>
+        <figcaption class="case__caption">Design system, Figma and code as one pipeline, no hand-off between a component and a shipped screen.</figcaption>
       </figure>
 
       <h3>Compliance and custody</h3>
       <p>
-        This is regulated financial infrastructure: institutions never give up custody, and every number on
-        screen can end up in front of an auditor. The product could never overstate or infer; it had to show
-        sourced, defensible data and a reproducible history.
+        Regulated financial infrastructure: clients never give up custody, and every number can end up in front
+        of an auditor. So the product shows sourced, defensible data and a reproducible history, never an inference.
       </p>
 
       <h3>Partial, delayed custodian data</h3>
       <p>
-        Custodians expose incomplete or lagging data. The UI had to stay honest about it, surfacing what's
-        known, what's pending and what's stale, instead of pretending the picture was always complete.
+        Custodians expose partial, lagging data, so the UI stays honest about it: what's known, what's pending,
+        what's stale.
       </p>
     </section>
 
