@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clone · Noé Martineau</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <meta name="description" content="Case study: Clone, bringing marketing campaign management for virtual restaurants into the Clone back office." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="topnav">
+    <a class="topnav__back" href="index.html">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M12 8H4M7 5L4 8l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      Noé Martineau
+    </a>
+  </nav>
+
+  <article class="page case">
+    <!-- Hero -->
+    <header class="case__hero">
+      <h1 class="case__title">Clone</h1>
+      <dl class="meta">
+        <div class="meta__item"><dt>Date</dt><dd>Dec 2023 - 2025</dd></div>
+        <div class="meta__item"><dt>Users</dt><dd>Key Account Manager (KAM), Revenue team</dd></div>
+        <div class="meta__item"><dt>Software / Method</dt><dd>Linear, Figma, Shape Up method, RICE</dd></div>
+        <div class="meta__item"><dt>Skills</dt><dd>UX/UI, User Experience, User Research, Product</dd></div>
+      </dl>
+    </header>
+
+    <figure class="canvas canvas--bleed canvas--hero">
+      <div class="canvas__stage">
+        <img src="assets/clone/clone_pres.jpg" alt="Clone back office: campaign dashboard with analysis, performance by scenario and promotions breakdown" />
+      </div>
+    </figure>
+
+    <!-- Context -->
+    <section class="case-section">
+      <h2>Context &amp; brief</h2>
+      <p>
+        At Clone, as a Product Designer, I worked on a project to completely rethink the management of marketing
+        campaigns for our virtual restaurants on Uber Eats and Deliveroo. Until now, these campaigns, whether
+        promotions or advertisements, were managed through external tools like Flynt and Google Sheets.
+      </p>
+      <h4>Overall Project Objective</h4>
+      <p>
+        Bring campaign management in-house, into the Clone back office, to reduce costs, improve efficiency and
+        automate marketing actions.
+      </p>
+    </section>
+
+    <!-- Research -->
+    <section class="case-section">
+      <h2>Research &amp; project scoping</h2>
+      <p>
+        Before proposing a solution, we conducted an in-depth analysis to understand user needs (KAM &amp; revenue
+        teams), technical constraints, and optimization opportunities.
+      </p>
+      <h4>To do this, we decided to use an agile and iterative methodology, which allowed us to:</h4>
+      <ul class="case-list">
+        <li><strong>Product adaptability</strong> → Adjust priorities based on user feedback and technical constraints.</li>
+        <li><strong>Incremental delivery</strong> → Develop and gradually deploy features to quickly test their impact.</li>
+        <li><strong>Collaboration</strong> → Involve users throughout the process to ensure continuous alignment.</li>
+        <li><strong>Product improvement</strong> → Iterate based on user feedback and performance analysis to refine and optimize the solution.</li>
+        <li><strong>Risk reduction/anticipation</strong> → Identify and address friction points early through short cycles and frequent testing.</li>
+      </ul>
+
+      <h4>We didn't strictly follow a single methodology but rather used different approaches depending on the project phase:</h4>
+      <ul class="case-list">
+        <li><strong>User research &amp; Persona definition</strong> → Understanding user needs, identifying pain points, and defining key opportunities.</li>
+        <li><strong>Event Storming &amp; User Story Mapping</strong> → Mapping out processes and user flows to align teams on the expected functionalities.</li>
+      </ul>
+      <figure class="canvas canvas--crop">
+        <div class="canvas__stage"><img src="assets/clone/researchflow.jpg" alt="Research and discovery flow" loading="lazy" /></div>
+        <figcaption>Research/Discovery flow</figcaption>
+      </figure>
+      <ul class="case-list">
+        <li><strong>Technical scoping &amp; Iterative development</strong> → Defining technical tasks, developing initial functional versions and continuously improving based on feedback.</li>
+        <li><strong>Shape Up &amp; Delivery feedback loop</strong> → Structuring and managing the development process. Collecting user feedback &amp; iterating based on insight to refine the product.</li>
+      </ul>
+      <figure class="canvas canvas--crop">
+        <div class="canvas__stage"><img src="assets/clone/devflow.jpg" alt="Development flow" loading="lazy" /></div>
+        <figcaption>Development flow</figcaption>
+      </figure>
+
+      <h3>Interviews &amp; Analysis of Existing Workflows</h3>
+      <p>User interviews with KAM and the revenue team to identify their needs and pain points.</p>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/revenuteam.jpg" alt="Interviews with the revenue team" loading="lazy" /></div>
+        <figcaption>Interviews with revenue team</figcaption>
+      </figure>
+      <ul class="case-list">
+        <li>Audit of ongoing campaigns to analyze the profitability and effectiveness of promotions.</li>
+        <li>Mapping of tools and data flows to understand the interactions between Flynt, Google Sheets, and delivery platforms.</li>
+      </ul>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/curentuserflow.jpg" alt="Current user flow including Flynt and Google Sheets" loading="lazy" /></div>
+        <figcaption>Current user flow (included Flynt + Gsheet)</figcaption>
+      </figure>
+      <p>
+        Once this research phase was completed, it allowed us to identify the pain points and limitations of the
+        project, enabling us to define our objectives afterward.
+      </p>
+
+      <h3>Pain points &amp; constraints</h3>
+      <h4>Pain points</h4>
+      <ul class="case-list">
+        <li><strong>High recurrent costs for Flynt (third-party tool)</strong> → 34K /months.</li>
+        <li><strong>Lack of autonomy</strong> → lots of reliance on Flynt's account managers.</li>
+        <li><strong>Lack of scalability</strong> → adding VRs and partners to the list make the campaign management very manual and time-consuming.</li>
+        <li><strong>Multiplication of data source</strong> → multiplication of error that provide lot of maintenance on revenue team.</li>
+        <li><strong>Lack of optimization</strong> in the selection of promotions launched.</li>
+      </ul>
+      <h4>Tech &amp; data constraints</h4>
+      <ul class="case-list">
+        <li>Deliveroo &amp; UberEats have rather different data structures and APIs, forcing us to re-map and re-structure data.</li>
+        <li>Platforms don't offer a flexible API for campaigns, and publishing them at scale is subject to blocks on the platform-side → risk of too many requests, too high volumes</li>
+      </ul>
+
+      <h3>Product &amp; business values</h3>
+      <p>Based on these insights, we defined clear KPIs and objectives to guide the design of the solution:</p>
+      <ul class="case-list">
+        <li>Fully replace Flynt to save more than 300K/y.</li>
+        <li>Increase Ad/Promo margins through more data-driven campaign decisions</li>
+        <li>Improve KAM/Revenue productivity (less time on launching promotion and more time on analysis)</li>
+        <li>Improvement on overall campaign performance (through algorithm)</li>
+      </ul>
+    </section>
+
+    <!-- Process -->
+    <section class="case-section">
+      <h2>Project process</h2>
+      <p>
+        The project was carried out in three steps, gradually addressing the main challenges, iterating better, and
+        optimizing both the user experience and operational efficiency.
+      </p>
+      <p>We focused on the MVP first, then Version 1 and Version 2 coming from iterations of the previous versions.</p>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/MVP.jpg" alt="MVP goals for Q1" loading="lazy" /></div>
+        <figcaption>MVP goals for Q1</figcaption>
+      </figure>
+      <h4>How do we break down the prioritizations for each version?</h4>
+      <p>We used the RICE method to prioritize features across each project. It's a method developed by Intercom.</p>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/RICE.jpg" alt="RICE prioritization dashboard" loading="lazy" /></div>
+        <figcaption>Screenshot of our RICE dashboard</figcaption>
+      </figure>
+    </section>
+
+    <!-- MVP -->
+    <section class="case-section">
+      <h2>The MVP</h2>
+      <p>The goal for this MVP was to build an initial internal version to test and refine the workflow.</p>
+      <ul class="case-list">
+        <li>Simple interface to manually manage campaigns.</li>
+        <li>Synchronization with Uber Eats and Deliveroo via API.</li>
+        <li>Basic dashboard to track promo performance.</li>
+        <li>Centralize the launch workflow (1 source of truth).</li>
+      </ul>
+      <h4>Key points:</h4>
+      <ul class="case-list">
+        <li>Validation of the internal model before automating.</li>
+        <li>Understanding technical pain points to adapt the future V2.</li>
+        <li>Engaging KAM and revenue teams from the start of the project.</li>
+      </ul>
+
+      <h4>Validation of a flow with users</h4>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/FlowMVP.jpg" alt="MVP user flow" loading="lazy" /></div>
+        <figcaption>MVP flow</figcaption>
+      </figure>
+
+      <h4>MVP Dashboard</h4>
+      <p>For the MVP dashboard we used an embed looker that the revenue team is used to using.</p>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/1C.jpg" alt="MVP dashboard with an embedded Looker report" loading="lazy" /></div>
+        <figcaption>MVP Dashboard (Embed looker)</figcaption>
+      </figure>
+      <p>
+        Once users have chosen which brands will be included in the campaign, a modal for choosing whether it will be
+        an advertising or promotional campaign appears.
+      </p>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/2C.jpg" alt="Modal to choose between a promotion and an ads campaign" loading="lazy" /></div>
+        <figcaption>Modal Promotion or Ads</figcaption>
+      </figure>
+
+      <h4>Campaign settings</h4>
+      <p>To set up the campaign, everything has to be filled manually: the date and each brand.</p>
+      <ul class="case-list">
+        <li>Note that each platform has its own set of parameter conditions</li>
+      </ul>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/3C.jpg" alt="Campaign set-up form, empty" loading="lazy" /></div>
+        <figcaption>Set up campaign empty</figcaption>
+      </figure>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/4C.jpg" alt="Campaign set-up form, filled in" loading="lazy" /></div>
+        <figcaption>Set up campaign active</figcaption>
+      </figure>
+
+      <h3>Lessons learned from this MVP</h3>
+      <h4>Resolved</h4>
+      <ul class="case-list">
+        <li>Dependency on third-party tools and external account managers.</li>
+        <li>Workflow complexity reduced through a centralized interface.</li>
+      </ul>
+      <h4>Remaining challenges</h4>
+      <ul class="case-list">
+        <li>Process still entirely manual and time-consuming.</li>
+        <li>Risk of errors in data entry and synchronization.</li>
+        <li>Limited real-time performance visibility.</li>
+        <li>Lack of precise granularity for campaigns.</li>
+      </ul>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/V1.jpg" alt="V1 goals for Q2" loading="lazy" /></div>
+        <figcaption>V1 goals for Q2</figcaption>
+      </figure>
+    </section>
+
+    <!-- V1 -->
+    <section class="case-section">
+      <h2>The V1</h2>
+      <p>The goal of this version was to structure and optimise campaigns using data.</p>
+      <ul class="case-list">
+        <li>Better campaign profitability through optimized campaign types.</li>
+        <li>Time savings for KAM/Revenue teams.</li>
+        <li>Smart campaign launches based on restaurant performance.</li>
+      </ul>
+      <h4>Key points:</h4>
+      <ul class="case-list">
+        <li>Partial automation of campaigns based on data insights.</li>
+        <li>Improved budget allocation based on historical performance.</li>
+        <li>Reduction of manual errors and conflicts between campaigns.</li>
+      </ul>
+
+      <h4>Validation of a flow with users</h4>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/FlowV1.jpg" alt="V1 user flow" loading="lazy" /></div>
+        <figcaption>V1 flow</figcaption>
+      </figure>
+
+      <h4>V1 Dashboard</h4>
+      <p>For V1, we adjusted the dashboard based on user needs from the MVP version.</p>
+      <ul class="case-list">
+        <li>Better flag errors after launches.</li>
+        <li>Access campaign data (GMV, Contributive Margin, etc.).</li>
+        <li>Integrate our own partner list (no longer depend on Looker).</li>
+      </ul>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/11.jpg" alt="V1 dashboard" loading="lazy" /></div>
+        <figcaption>V1 Dashboard</figcaption>
+      </figure>
+      <p>
+        Not depending on Looker anymore was a major objective to continue centralizing our partner database
+        internally and having a single source of truth.
+      </p>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/22.jpg" alt="Internal partner list" loading="lazy" /></div>
+        <figcaption>Intern partner list</figcaption>
+      </figure>
+
+      <h4>Campaign creation &amp; settings</h4>
+      <p>When creating the campaign, the user can choose between two options:</p>
+      <ul class="case-list">
+        <li>Manual campaign (based on the MVP flow)</li>
+        <li>Smart campaign (based on the data model according to partner performance)</li>
+      </ul>
+      <p>
+        If the user clicks on 'Smart Campaign,' everything is automatically pre-filled, allowing them to simply click
+        'launch campaign.' It's important to note that the user still has control over the inputs, allowing them to
+        verify and modify if it doesn't meet their needs.
+      </p>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/33.jpg" alt="Choice between a manual and a smart campaign" loading="lazy" /></div>
+        <figcaption>User can choose between 2 options.</figcaption>
+      </figure>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/44.jpg" alt="Smart campaign with pre-filled inputs" loading="lazy" /></div>
+        <figcaption>Smart campaign (pre filled input)</figcaption>
+      </figure>
+
+      <h4>Campaign listing</h4>
+      <p>
+        Once the user has created their campaign, a listing allows them to receive feedback on which campaigns were
+        launched correctly or not. Sometimes, there may be technical errors regarding the campaign's functionality.
+      </p>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/55.jpg" alt="Campaign listing with launch status" loading="lazy" /></div>
+        <figcaption>Campaign listing.</figcaption>
+      </figure>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage">
+          <video controls muted playsinline preload="metadata" poster="assets/clone/clone-poster.jpg">
+            <source src="assets/clone/clone.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </figure>
+
+      <h3>Lessons learned from this V1</h3>
+      <h4>Resolved</h4>
+      <ul class="case-list">
+        <li>Reduction of human errors through automatic suggestions.</li>
+        <li>Improved responsiveness and optimization of campaigns.</li>
+      </ul>
+      <h4>Remaining challenges</h4>
+      <ul class="case-list">
+        <li>Human intervention needed to validate recommendations.</li>
+        <li>Need to refine the algorithm to cover all specific scenarios.</li>
+        <li>Too many technical errors leading to too many restaurants without promotions.</li>
+      </ul>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/V2.jpg" alt="V2 goals for Q3" loading="lazy" /></div>
+        <figcaption>V2 goals for Q3</figcaption>
+      </figure>
+    </section>
+
+    <!-- V2 -->
+    <section class="case-section">
+      <h2>The V2</h2>
+      <p>
+        The goal of this version, based on our intentions and feedback from previous versions, was to make campaign
+        management 100% autonomous and intelligent.
+      </p>
+      <ul class="case-list">
+        <li>Automated rules engine to trigger promotions based on business objectives.</li>
+        <li>Make the setup of promotions and ads scalable according to the rules set by users.</li>
+      </ul>
+      <h4>Key points:</h4>
+      <ul class="case-list">
+        <li>Massive time savings for Revenue &amp; KAM teams.</li>
+        <li>Scalability to handle a higher volume of campaigns.</li>
+        <li>Flexibility to adjust and experiment with the established rules.</li>
+      </ul>
+
+      <h4>Validation of a flow with users</h4>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/FlowV2.jpg" alt="V2 user flow" loading="lazy" /></div>
+        <figcaption>V2 flow</figcaption>
+      </figure>
+
+      <h4>V2 Dashboard</h4>
+      <p>For the V2 of the dashboard, we segmented it into three parts:</p>
+      <ul class="case-list">
+        <li><strong>Analysis:</strong> Provides a better overview of campaign-related metrics.</li>
+        <li><strong>Performance by scenario:</strong> Tracks automation scenarios and offers insights on those in place.</li>
+        <li><strong>Promotions breakdown:</strong> Gives users an overview of the overall campaign health.</li>
+      </ul>
+      <p>
+        In parallel with V1, we had implemented various Retool solutions to address technical issues related to the
+        dashboard and smart promotions. The goal of this new dashboard was also to centralize all the Retool tools we
+        had previously set up.
+      </p>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/111.jpg" alt="V2 dashboard: analysis, performance by scenario, promotions breakdown" loading="lazy" /></div>
+        <figcaption>V2 Dashboard</figcaption>
+      </figure>
+
+      <h4>Scenarios creation &amp; settings</h4>
+      <p>
+        A new section in the navigation was introduced: Automation Scenarios. Given the complexity of the topic, we
+        dedicated an entirely new section to it in the navigation, allowing us to clearly display the essential
+        information:
+      </p>
+      <ul class="case-list">
+        <li>Have a clear view of the implemented scenarios and their parameters.</li>
+        <li>Ability to create and manage scenarios easily.</li>
+      </ul>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/222.jpg" alt="Automation scenarios section" loading="lazy" /></div>
+        <figcaption>Automation scenarios section</figcaption>
+      </figure>
+      <p>
+        If the user clicks on 'Create scenarios' A side panel opens, allowing the user to configure their own entry
+        conditions for the scenario as well as the expected outcome.
+      </p>
+      <p>The entry conditions can be defined based on three criteria:</p>
+      <ul class="case-list">
+        <li><strong>KPI(s)</strong> → Partner performance.</li>
+        <li><strong>Attributes</strong> → Partner's location or operating hours.</li>
+        <li><strong>Events</strong> → Related to orders placed on the partner's delivery platforms.</li>
+      </ul>
+      <p>
+        If a partner meets the entry rules for the scenario, they will automatically receive the specified type of
+        promotional or advertising campaign.
+      </p>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/333.jpg" alt="Create scenario campaign, step 1" loading="lazy" /></div>
+        <figcaption>Create scenario campaign (1)</figcaption>
+      </figure>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/444.jpg" alt="Create scenario campaign, income conditions" loading="lazy" /></div>
+        <figcaption>Create scenario campaign - Income</figcaption>
+      </figure>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/555.jpg" alt="Create scenario campaign, outcome" loading="lazy" /></div>
+        <figcaption>Create scenario campaign - Outcome</figcaption>
+      </figure>
+
+      <h4>Scenario history</h4>
+      <p>
+        In order to know if the scenario was working, we quickly implemented a history feature that tracks whether
+        partners entered and exited the scenario. This allowed us to validate the technical side of the feature.
+      </p>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/666.jpg" alt="Scenario history" loading="lazy" /></div>
+        <figcaption>Scenario history</figcaption>
+      </figure>
+
+      <h3>Lessons learned from this V2</h3>
+      <h4>Resolved</h4>
+      <ul class="case-list">
+        <li>Nearly total elimination of manual operations.</li>
+        <li>Continuous optimization of campaigns without human intervention.</li>
+        <li>Scalability enabling the management of a large volume of campaigns.</li>
+      </ul>
+      <h4>Remaining challenges</h4>
+      <ul class="case-list">
+        <li>Need for monitoring and supervision to prevent unexpected behaviors.</li>
+        <li>Complexity of setting up multi-platform monitoring.</li>
+        <li>Fine-tuned management of exceptions or specific cases not covered by automated rules.</li>
+      </ul>
+      <p>We fell behind on our roadmap, which led to having to continue iterating on this version.</p>
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/clone/FlowV22.jpg" alt="V2 goals for Q4" loading="lazy" /></div>
+        <figcaption>V2 goals for Q4</figcaption>
+      </figure>
+    </section>
+
+    <footer class="case__footer">
+      <a class="topnav__back" href="index.html">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M12 8H4M7 5L4 8l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        Back to home
+      </a>
+      <nav class="site-footer__links" aria-label="Contact">
+        <a href="mailto:noemartineaudu85@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/noemartineau/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </nav>
+    </footer>
+  </article>
+</body>
+</html>

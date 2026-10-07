@@ -422,7 +422,7 @@ body {
   align-items: center;
   gap: 7px;
   width: 100%;
-  max-width: 812px;
+  max-width: 720px;
   margin: 0 auto;
   padding: 14px 24px;
   font-size: 14px;
@@ -447,7 +447,7 @@ body {
 }
 
 .case {
-  max-width: 812px;
+  max-width: 720px;
   padding-top: 48px;
 }
 
@@ -1566,4 +1566,381 @@ body {
 
 .case__tldr strong {
   color: var(--text-strong);
+}
+
+/* ============================================================
+   Canvas layout: staged visuals wider than the text column
+   ============================================================ */
+
+:root {
+  --stage: #eceff3;
+  --wide: 1120px;
+}
+
+body {
+  overflow-x: clip;
+}
+
+/* A figure that breaks out of the 672px text column */
+.canvas {
+  position: relative;
+  left: 50%;
+  width: min(var(--wide), calc(100vw - 32px));
+  margin: 36px 0 40px;
+  transform: translateX(-50%);
+}
+
+.canvas__stage {
+  position: relative;
+  overflow: hidden;
+  background: var(--stage);
+  border-radius: 20px;
+}
+
+/* A full screen, whole and uncropped, centred on the stage */
+.canvas--bleed .canvas__stage {
+  padding: clamp(16px, 4.5%, 52px);
+}
+
+.canvas--bleed .canvas__stage img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(23, 33, 51, 0.05), 0 18px 44px rgba(23, 33, 51, 0.08);
+}
+
+/* A close-up centred on the stage */
+.canvas--crop .canvas__stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(20px, 5%, 56px);
+}
+
+.canvas--crop .canvas__stage img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(23, 33, 51, 0.05), 0 18px 44px rgba(23, 33, 51, 0.08);
+}
+
+.canvas--crop .canvas__stage img.is-md {
+  width: auto;
+  max-width: min(100%, 880px);
+}
+
+.canvas--crop .canvas__stage img.is-sm {
+  width: auto;
+  max-width: min(100%, 600px);
+}
+
+.canvas--crop .canvas__stage img.is-narrow {
+  width: auto;
+  max-width: 100%;
+  max-height: 640px;
+}
+
+.canvas--crop .canvas__stage video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(23, 33, 51, 0.05), 0 18px 44px rgba(23, 33, 51, 0.08);
+}
+
+/* Two stages side by side */
+.canvas--pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.canvas--pair figcaption {
+  grid-column: 1 / -1;
+}
+
+.canvas--pair .canvas__stage {
+  padding: clamp(12px, 3%, 24px);
+}
+
+.canvas--pair .canvas__stage img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(23, 33, 51, 0.05), 0 12px 30px rgba(23, 33, 51, 0.07);
+}
+
+/* Captions line up with the text column */
+.canvas figcaption {
+  max-width: 672px;
+  margin: 14px auto 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.canvas figcaption strong {
+  font-weight: 500;
+  color: var(--text-strong);
+}
+
+/* Hero: first visual, directly under the title block */
+.canvas--hero {
+  margin-top: 44px;
+}
+
+/* Hero subtitle */
+.case__dek {
+  margin: 18px 0 0;
+  max-width: 60ch;
+  font-size: 19px;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+/* Decision blocks: a claim, two sentences, a close-up */
+.decision + .decision {
+  margin-top: 8px;
+}
+
+.decision h3 {
+  margin-top: 48px;
+}
+
+/* Directions explored: four schematic structures */
+.explore {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.explore__item {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.explore__stage {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  aspect-ratio: 4 / 3;
+  padding: 16px;
+  background: var(--stage);
+  border-radius: 16px;
+}
+
+.explore__item--chosen .explore__stage {
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1.5px var(--text-strong);
+}
+
+.explore__name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.explore__verdict {
+  margin-top: -8px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.explore__verdict b {
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+/* Wireframe primitives */
+.wf {
+  flex: 1;
+  display: flex;
+  gap: 6px;
+  min-height: 0;
+}
+
+.wf--col {
+  flex-direction: column;
+}
+
+.wf__box {
+  flex: 1;
+  min-height: 0;
+  background: #fff;
+  border: 1px solid #dde2e8;
+  border-radius: 5px;
+}
+
+.wf__box--dark {
+  background: #cfd5dd;
+  border-color: #cfd5dd;
+}
+
+.wf__line {
+  flex: 0 0 7px;
+  background: #dde2e8;
+  border-radius: 3px;
+}
+
+.wf__line--strong {
+  flex-basis: 12px;
+  width: 55%;
+  background: #aab2bd;
+}
+
+.wf__label {
+  flex: 0 0 auto;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #8a93a0;
+}
+
+/* Visual language legend for the graph */
+.legend {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px 24px;
+  margin: 24px 0 8px;
+}
+
+.legend__item {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.legend__item b {
+  display: block;
+  margin-bottom: 2px;
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+/* Material still to export: visible on localhost only */
+.todo {
+  display: none;
+}
+
+.is-draft .todo {
+  display: block;
+  padding: 22px 24px;
+  border: 1.5px dashed #e0a100;
+  border-radius: 16px;
+  background: #fffaeb;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #7a5a00;
+}
+
+.is-draft .todo b {
+  color: #5c4300;
+}
+
+@media (max-width: 900px) {
+  .explore {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .canvas--pair,
+  .legend {
+    grid-template-columns: 1fr;
+  }
+
+  .canvas__stage {
+    border-radius: 14px;
+  }
+
+  .case__dek {
+    font-size: 17px;
+  }
+}
+
+/* Interaction states: a 2x2 sequence of frames */
+.states {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px 16px;
+}
+
+.state__stage {
+  padding: clamp(12px, 3%, 22px);
+  background: var(--stage);
+  border-radius: 16px;
+}
+
+.state__stage img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(23, 33, 51, 0.05), 0 12px 30px rgba(23, 33, 51, 0.07);
+}
+
+.state__text {
+  display: block;
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.state__text b {
+  margin-right: 6px;
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.state__n {
+  margin-right: 8px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+@media (max-width: 640px) {
+  .states {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Ported case studies (Finnt, Clone, Driveco): third heading level and video on stage */
+.case-section h4 {
+  margin: 28px 0 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.case-section h3 + h4 {
+  margin-top: 0;
+}
+
+.canvas--bleed .canvas__stage video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(23, 33, 51, 0.05), 0 18px 44px rgba(23, 33, 51, 0.08);
+}
+
+/* Project cards whose image is a centred device mockup */
+.project__media--center {
+  padding: 0;
+}
+
+.project__media--center img {
+  object-position: center;
+  border-radius: 0;
 }
