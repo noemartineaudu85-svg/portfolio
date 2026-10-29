@@ -2434,3 +2434,9 @@ mark.tbc {
     padding: 20px;
   }
 }
+
+/* Home cards: clean grey outline around the screen */
+.project__media--framed img {
+  border: 1px solid var(--divider);
+  border-right: 0;
+}
