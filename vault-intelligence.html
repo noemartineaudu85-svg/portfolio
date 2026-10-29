@@ -5,11 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vault Intelligence · Noé Martineau</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-  <meta name="description" content="Case study: Vault Intelligence, a tool that maps DeFi exposure so you can read who's exposed to what in seconds." />
+  <meta name="description" content="Case study: Vault Intelligence, a map of DeFi exposure so risk teams read who's exposed to what in seconds." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=20261029p" />
+  <script>
+    // Notes on facts to confirm only show up locally.
+    if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) document.documentElement.classList.add('is-draft');
+  </script>
 </head>
 <body>
   <nav class="topnav">
@@ -22,59 +26,56 @@
   </nav>
 
   <article class="page case">
-    <!-- Hero -->
+    <!-- 0. Hero -->
     <header class="case__hero">
-      <h1 class="case__title">See who's <span class="accent">exposed</span> to what</h1>
-      <p class="dek">
-        In DeFi, a vault leans on markets, and markets lean on assets. Deposit into a "USDC vault" and
-        you're not really holding USDC, you're exposed to the whole chain beneath it. This tool maps that
-        chain, so you can read it in seconds instead of hours.
-      </p>
-      <p class="dek">
-        <strong>I designed and shipped this one end to end.</strong> The force-directed bubble graph and
-        every interaction on this page are live front-end code I wrote, not a prototype.
+      <h1 class="case__title">See who's exposed to what</h1>
+      <p class="case__dek">
+        In DeFi, a vault leans on markets, and markets lean on assets. I designed and built a map of that whole
+        chain, so risk teams can read who's exposed to what in seconds instead of hours. Shipped with two engineers
+        and AI agents in the loop.
       </p>
       <dl class="meta">
-        <div class="meta__item"><dt>Role</dt><dd>Product Designer &amp; Engineer</dd></div>
+        <div class="meta__item"><dt>Role</dt><dd>Product designer &amp; engineer</dd></div>
         <div class="meta__item"><dt>Company</dt><dd>Kiln · Railnet</dd></div>
         <div class="meta__item"><dt>Surface</dt><dd>Web app</dd></div>
         <div class="meta__item"><dt>Year</dt><dd>2026</dd></div>
       </dl>
     </header>
 
-    <!-- Hero media -->
-    <figure class="shot">
-      <video autoplay loop muted playsinline preload="auto" poster="assets/vi/contagion-poster.jpg">
-        <source src="assets/vi/contagion.mp4" type="video/mp4" />
-      </video>
+    <!-- VISUAL 01: Hero (can become a 10 s looping video of the same view) -->
+    <figure class="canvas canvas--bleed canvas--hero">
+      <div class="canvas__stage">
+        <img src="assets/vi/hero.jpg" alt="Vault Intelligence map: one vault at the centre, every market it lends into and every asset behind them" />
+      </div>
+      <figcaption>Live product, built in code.</figcaption>
     </figure>
-    <p class="case__caption">One vault at the centre, and every market and collateral asset it depends on radiating out from it.</p>
 
-    <!-- The problem -->
+    <!-- 1. Overview -->
     <section class="case-section">
-      <h2>You can't see what you're exposed to</h2>
+      <h2>Overview</h2>
+
+      <h3>Challenge: contagion is invisible</h3>
       <p>
-        A vault shows a clean number and a friendly name. It never shows the stack underneath: the markets it
-        lends into, the collateral behind them, the single asset three layers down that other vaults lean on
-        too. The same asset backs many vaults at once, so when it breaks, they break together.
-        <span class="accent">That's contagion, and it's invisible.</span>
+        A vault shows a clean number and a friendly name. It never shows the stack underneath: the markets it lends
+        into, the collateral behind them, the asset three layers down that other vaults lean on too. When that asset
+        breaks, they break together.
       </p>
       <blockquote class="pull">"When one asset wobbles, which vaults go down with it?"</blockquote>
-      <p>
-        Until now, answering that meant an hour of manual digging across a dozen disconnected tools, long
-        after the damage was done.
-      </p>
-    </section>
+      <p>Answering that meant hours of manual digging across a dozen disconnected tools.</p>
 
-    <!-- The model -->
-    <section class="case-section">
-      <h2>Vaults, markets and assets</h2>
+      <h3>Approach: three kinds of things, two directions</h3>
       <p>
-        A vault is where money is deposited. A market is where that money is lent out. An asset is what
-        ultimately backs it. Vaults lean on markets; markets lean on assets, and the same market or asset is
-        shared by many vaults at once. <span class="accent">That sharing is exactly how risk spreads.</span>
+        I mapped the whole chain and made it readable both ways. The same market or asset is shared by many vaults
+        at once, and <strong>that sharing is how risk spreads.</strong>
       </p>
+      <ul class="case-list">
+        <li><strong>Vault:</strong> where money is deposited.</li>
+        <li><strong>Market:</strong> where it's lent.</li>
+        <li><strong>Asset:</strong> what backs it, and what you're ultimately exposed to.</li>
+        <li><strong>Read it downstream</strong> to see what a vault actually holds; <strong>read it upstream</strong> to see who's exposed to a given asset.</li>
+      </ul>
 
+      <!-- VISUAL 02: Vault → Market → Asset diagram -->
       <div class="model">
         <div class="model__node">
           <span class="model__name">Vault</span>
@@ -97,84 +98,211 @@
           <span class="model__sub">what it's exposed to</span>
         </div>
       </div>
-
-      <div class="dirnotes">
-        <p><strong>Read it downstream →</strong> what a vault actually holds.</p>
-        <p><strong>← Read it upstream,</strong> who's exposed to a given asset.</p>
-      </div>
-      <p style="margin-top:24px;">
-        A table can list any one vault's holdings. Only a graph shows that four vaults lean on the same asset
-        at once, which is the whole point. So the map is force-directed: shared dependencies pull nodes
-        together, and contagion becomes something you see rather than something you work out.
-      </p>
     </section>
 
-    <!-- The interaction -->
+    <!-- 2. Research -->
     <section class="case-section">
-      <h2>Click anything to see its connections</h2>
-      <ul class="ilist">
-        <li><strong>Hover a vault.</strong> See what it holds: the markets it allocates to, and the collateral behind them.</li>
-        <li><strong>Hover an asset.</strong> See who's exposed to it: every market and vault that touches it, deduplicated into one node.</li>
-        <li><strong>Hover a market.</strong> See both directions at once: the vaults using it, and the assets it leans on.</li>
+      <h2>Research</h2>
+      <p>
+        I didn't have the luxury of a research phase before building, so I made research continuous. I shipped an
+        internal V0 early, then ran short feedback and QA sessions with the people using it, and read through partner
+        calls where the platform was demoed. Every session was recorded with Granola, and I used AI to synthesise
+        across meetings, so patterns came out of a dozen conversations instead of my memory of the last one.
+      </p>
+
+      <h3>Who I learned from</h3>
+      <ul class="case-list case-list--spaced">
+        <li><strong>Internal users:</strong> 1:1 feedback syncs with our risk lead, two QA sessions with risk and engineering on the vault and asset reports, and an All-Hands demo to the whole company.</li>
+        <li><strong>Go-to-market:</strong> weekly syncs with marketing on how the product should be named and entered.</li>
+        <li><strong>Partners (via BD calls):</strong> five institutional conversations, including a European exchange, a TradFi investor, an enterprise custody provider, a wallet infrastructure company and a regulated custodian.</li>
+      </ul>
+
+      <!-- VISUAL 03: the people I learned from, and Granola -->
+      <figure class="canvas">
+        <div class="collage collage--trio">
+          <div class="print" style="--r:-5deg; --y:8px;"><img src="assets/vi/research/person-1.jpg" alt="Portrait of a colleague I ran feedback sessions with" loading="lazy" /></div>
+          <div class="print" style="--r:2deg; --y:-8px;"><img src="assets/vi/research/person-2.jpg" alt="Portrait of a colleague I ran feedback sessions with" loading="lazy" /></div>
+          <div class="print" style="--r:4deg; --y:6px;"><img src="assets/vi/research/person-3.jpg" alt="Portrait of a colleague I ran feedback sessions with" loading="lazy" /></div>
+          <div class="print print--badge" style="--r:-3deg;"><img src="assets/vi/research/granola.png" alt="Granola logo" loading="lazy" /></div>
+        </div>
+      </figure>
+
+      <h3>From conversation to ticket</h3>
+      <p>
+        Feedback never stayed in a meeting note. I scoped the project in Linear from day one (map, table, vault page,
+        PDF report, comparison, plus the PRD), and every round of feedback came back as tracked issues, written as the
+        problem the user hit rather than the fix.
+      </p>
+      <figure class="loop-fig">
+        <div class="loop loop--compact loop--plain">
+          <div class="loop__step"><span class="loop__label"><img src="assets/logos/granola.png" alt="" />Granola captures</span></div>
+          <span class="loop__arrow" aria-hidden="true">→</span>
+          <div class="loop__step"><span class="loop__label">AI synthesis</span></div>
+          <span class="loop__arrow" aria-hidden="true">→</span>
+          <div class="loop__step"><span class="loop__label"><img src="assets/logos/linear.png" alt="" />Linear issue</span></div>
+          <span class="loop__arrow" aria-hidden="true">→</span>
+          <div class="loop__step"><span class="loop__label"><img src="assets/logos/github.png" alt="" />Pull request</span></div>
+          <span class="loop__arrow" aria-hidden="true">→</span>
+          <div class="loop__step"><span class="loop__label"><img src="assets/logos/github.png" alt="" />Shipped</span></div>
+        </div>
+      </figure>
+
+      <figure class="canvas canvas--bleed">
+        <div class="canvas__stage"><img src="assets/vi/linear-board.jpg" alt="The project's Linear board with Todo, In Review, Done and Canceled columns; card content blurred" loading="lazy" /></div>
+        <figcaption>The project board in Linear. Card content blurred.</figcaption>
+      </figure>
+    </section>
+
+    <!-- 3. Product -->
+    <section class="case-section">
+      <h2>Product</h2>
+
+      <h3>Select anything to see who leans on it</h3>
+      <p>
+        A vault shows what it holds, an asset shows who's exposed to it, a market shows both. I designed the gesture
+        as four states, so the map never changes more than the question you just asked.
+      </p>
+
+      <!-- VISUAL 04: the four states -->
+      <figure class="canvas">
+        <div class="states">
+          <div class="state">
+            <div class="state__stage"><img src="assets/vi/state-rest.jpg" alt="Map at rest: vault bubbles only, with a minimap in the corner" loading="lazy" /></div>
+            <span class="state__text"><span class="state__n">01</span><b>Rest.</b>Vaults only, no lines. A minimap keeps you oriented.</span>
+          </div>
+          <div class="state">
+            <div class="state__stage"><img src="assets/vi/state-hover.jpg" alt="Hovering a vault: a dashed blue ring and its connections drawn in, nothing dimmed" loading="lazy" /></div>
+            <span class="state__text"><span class="state__n">02</span><b>Hover.</b>A dashed ring and the connections draw in, without dimming anything.</span>
+          </div>
+          <div class="state">
+            <div class="state__stage"><img src="assets/vi/state-select.jpg" alt="Vault selected: solid blue ring, everything unrelated fades back" loading="lazy" /></div>
+            <span class="state__text"><span class="state__n">03</span><b>Select.</b>The ring turns solid, everything unrelated fades back.</span>
+          </div>
+          <div class="state">
+            <div class="state__stage"><img src="assets/vi/state-recentre.jpg" alt="A connected market selected in turn: the focus moves to it, one hop further" loading="lazy" /></div>
+            <span class="state__text"><span class="state__n">04</span><b>Follow.</b>Click a connected market and the focus moves to it, one hop further.</span>
+          </div>
+        </div>
+      </figure>
+
+      <!-- VISUAL 05: who leans on a market -->
+      <figure class="canvas canvas--crop">
+        <div class="canvas__stage">
+          <video autoplay loop muted playsinline preload="metadata" poster="assets/vi/exposure-poster.jpg">
+            <source src="assets/vi/exposure.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <figcaption>Select a market and every vault that depends on it fans out around it.</figcaption>
+      </figure>
+    </section>
+
+    <!-- 4. Key decisions -->
+    <section class="case-section">
+      <h2>Key decisions</h2>
+      <p>
+        Each decision went through the same loop. We first explored the directions on paper, iterating fast on
+        sketches. Then we coded the most promising ones so users could test them in the real product, with real
+        data, before we committed.
+      </p>
+
+      <!-- VISUAL 09: explorations, on paper then in code -->
+      <figure class="canvas">
+        <div class="collage">
+          <div class="print" style="--r:-4deg; --y:10px;"><img src="assets/vi/explore/sketch-1.jpg" alt="Paper sketch: vaults placed on a scatter of risk against yield, with filters" loading="lazy" /></div>
+          <div class="print" style="--r:2.5deg; --y:-14px;"><img src="assets/vi/explore/sketch-2.jpg" alt="Paper sketch: a chat panel next to an asset bubble with its contagion links" loading="lazy" /></div>
+          <div class="print" style="--r:-1.5deg; --y:18px;"><img src="assets/vi/explore/sketch-3.jpg" alt="Paper sketch: a table layout with a contagion column" loading="lazy" /></div>
+        </div>
+        <figcaption>First on paper: a scatter, a chat next to the map, a table.</figcaption>
+      </figure>
+
+      <figure class="canvas">
+        <div class="collage">
+          <div class="print" style="--r:-3deg; --y:12px;"><img src="assets/vi/explore/code-scatter.jpg" alt="Coded exploration: vaults on a scatter of APY against risk bands" loading="lazy" /></div>
+          <div class="print" style="--r:2deg; --y:-10px;"><img src="assets/vi/explore/code-risk-map.jpg" alt="Coded exploration: the bubble map with risk flags on each vault" loading="lazy" /></div>
+          <div class="print" style="--r:-1deg; --y:16px;"><img src="assets/vi/explore/code-risk-table.jpg" alt="Coded exploration: a table with a row of risk factor squares per vault" loading="lazy" /></div>
+          <div class="print" style="--r:3deg; --y:-6px;"><img src="assets/vi/explore/code-chat-1.jpg" alt="Coded exploration: a chat answering which vaults are exposed, next to a table" loading="lazy" /></div>
+          <div class="print" style="--r:-2.5deg; --y:14px;"><img src="assets/vi/explore/code-chat-2.jpg" alt="Coded exploration: a chat answer opening an asset's details" loading="lazy" /></div>
+          <div class="print" style="--r:1.5deg; --y:-12px;"><img src="assets/vi/explore/code-chat-3.jpg" alt="Coded exploration: a chat answer comparing two reserves side by side" loading="lazy" /></div>
+        </div>
+        <figcaption>Then in code, so users could try each direction with real data.</figcaption>
+      </figure>
+
+      <h3>Two views, one question</h3>
+      <p>
+        The product has a map and a table, and they're not competing: each answers the same question at a different
+        density. The decision was which one leads. A table can list one vault's holdings, but only a graph shows that
+        four vaults lean on the same asset at once. So the map comes first, and the table takes over when you need
+        numbers.
+      </p>
+      <ul class="case-list case-list--spaced">
+        <li><strong>Map, to spot patterns:</strong> force-directed, so shared dependencies pull nodes together and contagion becomes visible.</li>
+        <li><strong>Table, to compare:</strong> same filters, same grammar, one figure per column. It takes over when the biggest vaults get too dense for a graph.</li>
       </ul>
     </section>
 
-    <!-- Moment: asset exposure -->
+    <!-- 5. How I built it -->
     <section class="case-section">
-      <h2>See everyone exposed to an asset</h2>
-      <p class="case__sub">The clearest proof of contagion: select one node, and the whole crowd that depends on it appears.</p>
-      <figure class="shot">
-        <video autoplay loop muted playsinline preload="auto" poster="assets/vi/exposure-poster.jpg">
-          <source src="assets/vi/exposure.mp4" type="video/mp4" />
-        </video>
-      </figure>
-      <p class="case__caption"><strong>Everyone exposed, in one move.</strong> Select a market or asset and the whole crowd that leans on it fans out around it, including the connections you'd never have found by hand.</p>
-    </section>
-
-    <!-- Moment: search & filter -->
-    <section class="case-section">
-      <h2>Search and filter the whole map</h2>
-      <p class="case__sub">Type a vault, asset or curator, or filter by protocol and chain, and the universe reframes around the answer.</p>
-      <figure class="shot">
-        <video autoplay loop muted playsinline preload="auto" poster="assets/vi/search-poster.jpg">
-          <source src="assets/vi/search.mp4" type="video/mp4" />
-        </video>
-      </figure>
-      <p class="case__caption"><strong>Search &amp; filter.</strong> Ask the question; the platform decides where to show you the answer.</p>
-    </section>
-
-    <!-- How we show risk -->
-    <section class="case-section">
-      <h2>We show facts, not verdicts</h2>
+      <h2>How I built it: AI-native</h2>
       <p>
-        We legally can't call a vault "safe" or "risky", a product that publishes that would be regulated
-        investment advice. So I designed the opposite: no scores, no ratings, no judgment words.
+        On the AI side, I mainly used two tools: <span class="tool"><img src="assets/logos/claude.png" alt="" />Claude Code</span>
+        to build features and iterate on the app directly in code, and
+        <span class="tool"><img src="assets/logos/granola.png" alt="" />Granola</span> to record and synthesise every
+        feedback session. What made that speed safe was the design system: every component lives in Figma and in code, and AI builds
+        from those components instead of inventing UI. My job shifted from drawing every state to defining the
+        system and judging the output.
       </p>
-      <p>
-        Every point on screen is a sourceable fact, a 72-hour timelock, a fixed-price oracle, an 86% LLTV,
-        marked as a strength or as something to review. The product shows you where the risks lie and lets
-        you decide.
-      </p>
-      <figure class="shot">
-        <video autoplay loop muted playsinline preload="auto" poster="assets/vi/risk-poster.jpg">
-          <source src="assets/vi/risk.mp4" type="video/mp4" />
-        </video>
+      <ul class="case-list case-list--spaced">
+        <li><strong>Fast:</strong> V0 shipped internally in about two weeks, then 220+ pull requests merged in eight.</li>
+        <li><strong>On-brand by default:</strong> every generated screen is assembled from system components.</li>
+        <li><strong>Feedback to production in days:</strong> each round of feedback became shipped changes the same week.</li>
+        <li><strong>No ticket for small things:</strong> I set up Claude in <span class="tool"><img src="assets/logos/slack.png" alt="" />Slack</span> to open pull requests for quick fixes, so small changes skip the ticket queue entirely.</li>
+        <li><strong>Built for agents too:</strong> the same data is exposed through an MCP server, so you can ask Claude to "compare the top five USDe vaults" and get a report built from the platform.</li>
+      </ul>
+
+      <!-- GitHub contributions over the last year -->
+      <figure class="canvas canvas--contrib">
+        <div class="contrib__head">
+          <span class="contrib__title">Contributions</span>
+          <img class="contrib__avatar" src="assets/avatar.jpg" alt="Noé Martineau" />
+        </div>
+        <div class="contrib__frame">
+          <div class="contrib__card">
+            <div class="contrib__wrap">
+            <div class="contrib__span" style="--start:44;" aria-hidden="true"><span>2 weeks</span></div>
+            <div class="contrib__grid" role="img" aria-label="GitHub contribution graph: 3,831 contributions in the last year">
+            <i></i><i></i><i class="l1"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="l2"></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="l1"></i><i></i><i></i><i></i><i></i><i class="l2"></i><i></i><i></i><i class="l2"></i><i></i><i></i>
+            <i></i><i class="l1"></i><i></i><i></i><i></i><i></i><i></i><i class="l1"></i><i></i><i></i><i></i><i class="l1"></i><i></i><i></i><i class="l1"></i><i></i><i></i><i></i><i></i><i></i><i class="l1"></i><i></i><i></i><i class="l1"></i><i class="l1"></i><i></i><i></i><i></i>
+            <i></i><i class="l1"></i><i></i><i></i><i class="l3"></i><i></i><i></i><i></i><i></i><i class="l1"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="l1"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i class="l1"></i><i class="l1"></i><i></i><i class="l2"></i><i></i><i></i><i></i><i class="l1"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="l1"></i><i></i><i></i><i class="l1"></i><i></i><i></i><i></i><i></i><i class="l1"></i><i></i><i class="l1"></i><i class="l1"></i><i></i>
+            <i></i><i class="l1"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="l1"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="l1"></i><i></i><i class="l1"></i><i class="l1"></i><i></i><i class="l1"></i><i></i><i class="l2"></i><i class="l1"></i><i></i><i></i>
+            <i></i><i></i><i class="l1"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="l1"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="l1"></i><i></i><i class="l1"></i><i></i>
+            <i></i><i></i><i></i><i class="l1"></i><i class="l1"></i><i></i><i></i><i class="l1"></i><i class="l1"></i><i class="l1"></i><i></i><i></i><i></i><i></i><i></i><i class="l1"></i><i></i><i></i><i></i><i></i><i class="l1"></i><i></i><i class="l1"></i><i></i><i class="l1"></i><i></i><i></i><i></i>
+            <i class="l1"></i><i></i><i></i><i class="l1"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="l1"></i><i></i><i></i><i class="l1"></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="l1"></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i class="l1"></i><i></i><i></i><i class="l1"></i><i></i><i class="l1"></i><i></i><i class="l1"></i><i></i><i></i><i></i><i></i><i class="l1"></i><i></i><i></i><i class="l2"></i><i></i><i></i><i class="l1"></i><i></i><i class="l1"></i><i></i><i class="l1"></i><i></i><i></i><i class="l1"></i><i></i>
+            <i></i><i></i><i></i><i class="l1"></i><i></i><i></i><i class="l1"></i><i class="l1"></i><i></i><i></i><i></i><i></i><i></i><i class="l1"></i><i></i><i></i><i class="l1"></i><i class="l2"></i><i></i><i></i><i></i><i class="l1"></i><i></i><i></i><i></i><i></i><i class="l1"></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="l1"></i><i></i><i></i><i class="l2"></i><i></i><i class="l1"></i>
+            <i class="l4"></i><i class="l3"></i><i class="l4"></i><i class="l4"></i><i class="l3"></i><i class="l2"></i><i class="l4"></i><i class="l3"></i><i class="l4"></i><i class="l4"></i><i class="l3"></i><i class="l4"></i><i class="l4"></i><i class="l3"></i><i class="l3"></i><i class="l1"></i><i class="l1"></i><i class="l2"></i><i></i><i class="l1"></i><i class="l1"></i><i class="l3"></i><i></i><i></i><i class="l1"></i><i class="l2"></i><i class="l2"></i><i></i>
+            <i class="l3"></i><i class="l1"></i><i class="l3"></i><i class="l3"></i><i></i><i class="l4"></i><i class="l1"></i><i></i><i class="l1"></i><i></i><i class="l2"></i><i class="l1"></i><i></i><i></i><i class="l1"></i><i class="l2"></i><i class="l1"></i><i></i><i class="l1"></i><i></i><i class="l1"></i><i class="l3"></i><i></i><i class="l1"></i><i class="l2"></i><i></i><i></i><i></i>
+            <i class="l1"></i><i class="l2"></i><i class="l2"></i><i></i><i class="l1"></i><i class="lx"></i><i class="lx"></i>
+            </div>
+            </div>
+            <div class="contrib__foot">
+              <span>3,831 contributions in the last year</span>
+              <span class="contrib__legend" aria-hidden="true"><span>Less</span><i style="background:#e8e8e8"></i><i style="background:#ace7ae"></i><i style="background:#69c16e"></i><i style="background:#549f57"></i><i style="background:#386c3e"></i><span>More</span></span>
+            </div>
+          </div>
+        </div>
       </figure>
-      <p class="case__caption">Toggle risk on, and every node carries a sourced breakdown: strengths, and the facts worth reviewing, in plain language.</p>
-      <div class="flags">
-        <span class="flag flag--strength">✓ <b>Strength</b> the fact meets the threshold</span>
-        <span class="flag flag--review">⚑ <b>To review</b> the fact deviates, not "bad"</span>
-      </div>
     </section>
 
-    <!-- What it's for -->
+    <!-- 6. Outcomes -->
     <section class="case-section">
-      <h2>Who's exposed, in under a minute</h2>
+      <h2>Outcomes &amp; takeaways</h2>
+
+      <h3>Who's exposed, in under a minute</h3>
       <p>
-        Kiln's risk, BD and partnerships teams use it, along with partners doing vault due diligence. When a
-        token starts depegging, "which vaults are exposed to this?" now gets answered in a single search
-        instead of an afternoon of manual digging across a dozen tools, and you leave with a report you can
-        forward to a client.
+        Kiln's risk, BD and partnerships teams use it. When a token starts depegging, "which vaults are exposed?" is
+        one search, and you leave with a report you can forward to a client.
       </p>
 
       <div class="impact">
@@ -183,29 +311,16 @@
           <span class="impact__label">to answer "which vaults are exposed to this asset?"</span>
         </div>
         <div class="impact__item">
-          <span class="impact__delta impact__delta--single">$30B+</span>
-          <span class="impact__label">TVL mapped in one view, across 270+ markets and 260+ vaults</span>
+          <span class="impact__delta"><span class="impact__from">~half a day</span><span class="impact__to">one export</span></span>
+          <span class="impact__label">for a client-ready due-diligence report</span>
         </div>
         <div class="impact__item">
-          <span class="impact__delta"><span class="impact__from">~half a day</span><span class="impact__to">one export</span></span>
-          <span class="impact__label">for a vault due-diligence report you can forward to a client</span>
+          <span class="impact__delta impact__delta--single">$30B+</span>
+          <span class="impact__label">mapped in one view</span>
         </div>
       </div>
-      <p class="case__note">
-        Coverage is live product data; the time comparisons are directional estimates against the manual
-        workflow they replaced. Hard adoption figures to be added once measured.
-      </p>
-    </section>
-
-    <!-- Hindsight -->
-    <section class="case-section">
-      <h2>If I did it again</h2>
-      <p>
-        <strong>The force-directed map is beautiful, but it gets dense on the biggest vaults.</strong> I
-        leaned on it hard because it makes contagion obvious; at scale, readability suffers. I'd design the
-        table view and progressive disclosure alongside it from day one, so the map holds up on the largest
-        positions, not just in the demo.
-      </p>
+      <p style="margin-top:20px;"><strong>Agent-ready:</strong> AI assistants query the same facts people see.</p>
+      <p class="case__note">Coverage is live product data; time comparisons are directional estimates against the manual workflow they replaced.</p>
     </section>
 
     <footer class="case__footer">

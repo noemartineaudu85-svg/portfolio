@@ -1944,3 +1944,426 @@ body {
   object-position: center;
   border-radius: 0;
 }
+
+/* Empty visual placeholders: replace the whole stage with
+   <div class="canvas__stage"><img src="..." alt="..." /></div> */
+.ph {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  aspect-ratio: var(--ar, 16 / 9);
+  padding: 24px;
+  text-align: center;
+  background: var(--stage);
+  border-radius: 20px;
+}
+
+.ph__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #8a93a0;
+}
+
+.ph__desc {
+  max-width: 46ch;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+/* Hero headline figure */
+.hero-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 26px 0 0;
+}
+
+.hero-stat__value {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-strong);
+}
+
+.hero-stat__label {
+  font-size: 15px;
+  color: var(--text);
+}
+
+/* The question each product surface answers */
+.case-section .q {
+  margin: -8px 0 12px;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+/* Fact still to confirm before publishing */
+mark.tbc {
+  padding: 0 3px;
+  background: #fff3c4;
+  border-radius: 3px;
+  color: inherit;
+}
+
+/* Collage: loose prints with a white border and a thin grey outline */
+.collage {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 28px 0 8px;
+}
+
+.print {
+  flex: 0 0 var(--w, 34%);
+  margin: -1.2% -1.6%;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid var(--divider);
+  border-radius: 18px;
+  box-shadow: 0 2px 6px rgba(23, 33, 51, 0.05), 0 14px 34px rgba(23, 33, 51, 0.08);
+  transform: rotate(var(--r, 0deg)) translateY(var(--y, 0));
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease;
+}
+
+/* Hover: the print straightens and comes to the front */
+.print:hover {
+  position: relative;
+  z-index: 2;
+  transform: rotate(0deg) translateY(var(--y, 0)) scale(1.04);
+  box-shadow: 0 4px 10px rgba(23, 33, 51, 0.06), 0 24px 50px rgba(23, 33, 51, 0.14);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .print {
+    transition: none;
+  }
+}
+
+.print img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.collage + figcaption {
+  margin-top: 20px;
+}
+
+@media (max-width: 640px) {
+  .print {
+    flex-basis: 46%;
+    margin: -2% -1.5%;
+  }
+}
+
+/* Three prints in a row with a badge pinned at the exact centre, in front */
+.collage--trio {
+  position: relative;
+  flex-wrap: nowrap;
+  width: max-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 28px 0 56px;
+}
+
+.collage--trio .print {
+  flex: 0 0 auto;
+  width: 200px;
+  margin: 0 -8px;
+}
+
+.collage--trio .print--badge {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  z-index: 3;
+  width: 110px;
+  margin: 0;
+  transform: translateX(-50%) rotate(var(--r, 0deg));
+}
+
+.collage--trio .print--badge:hover {
+  transform: translateX(-50%) rotate(0deg) scale(1.06);
+}
+
+@media (max-width: 640px) {
+  .collage--trio .print {
+    width: 112px;
+    padding: 6px;
+    border-radius: 12px;
+  }
+
+  .collage--trio .print--badge {
+    width: 70px;
+    bottom: 26px;
+  }
+}
+
+/* Tool name with a tiny inline logo */
+.tool {
+  white-space: nowrap;
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.tool img {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.3em;
+  border-radius: 0.24em;
+  vertical-align: -0.14em;
+}
+
+/* GitHub-style contribution graph */
+.contrib__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 100%;
+  margin: 0 0 14px;
+}
+
+.contrib__title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.contrib__avatar {
+  display: block;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px var(--divider);
+}
+
+.contrib__frame {
+  padding: 6px;
+  background: #fff;
+  border: 1px solid var(--divider);
+  border-radius: 22px;
+  box-shadow: 0 2px 6px rgba(23, 33, 51, 0.04);
+}
+
+.contrib__card {
+  padding: 28px 30px 24px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow-x: auto;
+}
+
+.contrib__grid {
+  display: grid;
+  grid-template-rows: repeat(7, auto);
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(9px, 1fr);
+  gap: 4px;
+  min-width: 690px;
+}
+
+.contrib__grid i {
+  aspect-ratio: 1;
+  border-radius: 3px;
+  background: #e8e8e8;
+}
+
+.contrib__grid .l1 { background: #ace7ae; }
+.contrib__grid .l2 { background: #69c16e; }
+.contrib__grid .l3 { background: #549f57; }
+.contrib__grid .l4 { background: #386c3e; }
+.contrib__grid .lx { background: transparent; }
+
+.contrib__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-width: 690px;
+  margin-top: 22px;
+  font-size: 15px;
+  color: var(--text);
+}
+
+.contrib__legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.contrib__legend i {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.contrib__legend span:first-child {
+  margin-right: 4px;
+}
+
+.contrib__legend span:last-child {
+  margin-left: 4px;
+}
+
+/* Bracket marking a two-week stretch on the contribution graph */
+.contrib__card {
+  padding-top: 44px;
+}
+
+.contrib__wrap {
+  position: relative;
+  min-width: 690px;
+}
+
+.contrib__span {
+  --cell: calc((100% - 52 * 4px) / 53);
+  position: absolute;
+  top: -8px;
+  bottom: -8px;
+  left: calc(var(--start) * (var(--cell) + 4px) - 5px);
+  width: calc(2 * var(--cell) + 4px + 10px);
+  border-left: 1.5px solid var(--text-strong);
+  border-right: 1.5px solid var(--text-strong);
+  pointer-events: none;
+}
+
+.contrib__span span {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-bottom: 6px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+/* Compact version of the contribution graph */
+.canvas--contrib {
+  width: min(760px, calc(100vw - 32px));
+}
+
+.canvas--contrib .contrib__card {
+  padding: 38px 24px 20px;
+}
+
+.canvas--contrib .contrib__grid {
+  grid-auto-columns: minmax(7px, 1fr);
+  gap: 3px;
+}
+
+.canvas--contrib .contrib__grid i {
+  border-radius: 2px;
+}
+
+.canvas--contrib .contrib__wrap,
+.canvas--contrib .contrib__grid,
+.canvas--contrib .contrib__foot {
+  min-width: 530px;
+}
+
+.canvas--contrib .contrib__span {
+  --cell: calc((100% - 52 * 3px) / 53);
+  left: calc(var(--start) * (var(--cell) + 3px) - 4px);
+  width: calc(2 * var(--cell) + 3px + 8px);
+  top: -6px;
+  bottom: -6px;
+}
+
+.canvas--contrib .contrib__foot {
+  margin-top: 18px;
+  font-size: 13px;
+}
+
+.canvas--contrib .contrib__legend i {
+  width: 10px;
+  height: 10px;
+}
+
+.canvas--contrib .contrib__title {
+  font-size: 15px;
+}
+
+.canvas--contrib .contrib__avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+}
+
+/* Compact single-line pipeline (five short steps) */
+.loop--compact {
+  flex-wrap: nowrap;
+  gap: 8px;
+  padding: 14px;
+}
+
+.loop--compact .loop__step {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 11px 10px;
+  white-space: nowrap;
+}
+
+.loop--compact .loop__label {
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+@media (max-width: 640px) {
+  .loop--compact {
+    flex-wrap: wrap;
+  }
+}
+
+/* Tiny logo inside a diagram step */
+.loop__label img {
+  display: inline-block;
+  width: 1.05em;
+  height: 1.05em;
+  margin-right: 0.35em;
+  border-radius: 0.24em;
+  vertical-align: -0.16em;
+}
+
+/* Plain pipeline: just the steps and arrows, no boxes */
+.loop--plain {
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  background: none;
+  border: 0;
+  box-shadow: none;
+}
+
+.loop--plain .loop__step {
+  flex: 0 0 auto;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+
+.loop--plain .loop__label {
+  font-size: 14.5px;
+}
+
+@media (max-width: 640px) {
+  .loop--plain {
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .loop--plain .loop__arrow {
+    transform: none;
+  }
+}
